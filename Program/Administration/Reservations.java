@@ -5,6 +5,7 @@ public class Reservations {
 
     private int id;
     private Chambres chambre;
+    private EtatReservation etat;
     private String dateDebut;
     private String dateFin;
 
@@ -13,8 +14,11 @@ public class Reservations {
         this.chambre = chambre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.etat = EtatReservation.EN_ATTENTE;
     }
 
+
+    /// Getters & Setters
     public int getId() {
         return id;
     }
@@ -59,6 +63,14 @@ public class Reservations {
         // Retourner true si c'est le cas, false sinon
         // Vous pouvez utiliser une logique personnalisée pour comparer les dates
         return false;
+    }
+
+    public EtatReservation getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatReservation etat) {
+        this.etat = etat;
     }
 
 }

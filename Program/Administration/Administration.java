@@ -2,9 +2,6 @@ package Administration;
 
 import java.util.Scanner;
 
-/**
- * Administrateur
- */
 public class Administration {
 
     private Administrateur Administrateur;
@@ -24,7 +21,7 @@ public class Administration {
             System.out.println("0. Quitter");
             System.out.print("Choix : ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Ignorer le saut de ligne
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -57,31 +54,37 @@ public class Administration {
             System.out.println("0. Retour");
             System.out.print("Choix : ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Ignorer le saut de ligne
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
                     System.out.print("Numéro de chambre : ");
                     int roomNumber = scanner.nextInt();
-                    scanner.nextLine(); // Ignorer le saut de ligne
+                    scanner.nextLine();
+
+                    TypeChambre.displayTypeChabmre();
                     System.out.print("Type de chambre : ");
-                    String roomType = scanner.nextLine();
+                    TypeChambre roomType = TypeChambre.valueOf(scanner.nextLine());
+
                     Administrateur.addRoom(roomNumber, roomType);
                     System.out.println("Chambre ajoutée avec succès !");
                     break;
                 case 2:
                     System.out.print("Numéro de chambre à modifier : ");
                     int roomNumberToModify = scanner.nextInt();
-                    scanner.nextLine(); // Ignorer le saut de ligne
+                    scanner.nextLine();
+
                     System.out.print("Nouveau type de chambre : ");
-                    String newRoomType = scanner.nextLine();
+                    TypeChambre newRoomType = TypeChambre.valueOf(scanner.nextLine());
+
                     Administrateur.modifyRoom(roomNumberToModify, newRoomType);
                     System.out.println("Chambre modifiée avec succès !");
                     break;
                 case 3:
                     System.out.print("Numéro de chambre à supprimer : ");
                     int roomNumberToDelete = scanner.nextInt();
-                    scanner.nextLine(); // Ignorer le saut de ligne
+                    scanner.nextLine();
+
                     Administrateur.deleteRoom(roomNumberToDelete);
                     System.out.println("Chambre supprimée avec succès !");
                     break;
@@ -109,7 +112,7 @@ public class Administration {
             System.out.println("0. Retour");
             System.out.print("Choix : ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Ignorer le saut de ligne
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -118,13 +121,15 @@ public class Administration {
                 case 2:
                     System.out.print("ID de réservation à accepter : ");
                     int reservationIdToAccept = scanner.nextInt();
-                    scanner.nextLine(); // Ignorer le saut de ligne
+                    scanner.nextLine();
+
                     Administrateur.acceptReservation(reservationIdToAccept);
                     break;
                 case 3:
                     System.out.print("ID de réservation à décliner : ");
                     int reservationIdToDecline = scanner.nextInt();
-                    scanner.nextLine(); // Ignorer le saut de ligne
+                    scanner.nextLine();
+
                     Administrateur.declineReservation(reservationIdToDecline);
                     break;
                 case 0:

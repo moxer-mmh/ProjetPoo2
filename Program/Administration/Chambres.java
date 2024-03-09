@@ -3,15 +3,18 @@ package Administration;
 public class Chambres {
 
     private int numero;
-    private String type;
+    private TypeChambre type;
     private boolean estReservee;
 
 
-    public Chambres(int numero, String type) {
+    public Chambres(int numero, TypeChambre type) {
         this.numero = numero;
         this.type = type;
         this.estReservee = false;
     }
+
+
+    /// Getters & Setters
 
     public int getNumero() {
         return numero;
@@ -21,11 +24,11 @@ public class Chambres {
         this.numero = numero;
     }
 
-    public String getType() {
+    public TypeChambre getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeChambre type) {
         this.type = type;
     }
 

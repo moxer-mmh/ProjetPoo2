@@ -39,8 +39,9 @@ class Main {
                     break;
                 }else{
                     System.out.println("Authentification échouée. Veuillez réessayer.");
+                    break;
                 }
-                
+
             case 2:
                 // L'utilisateur est un client
                 System.out.println("-----------------------------------------------------------------");

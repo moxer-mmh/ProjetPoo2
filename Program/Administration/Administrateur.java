@@ -14,12 +14,12 @@ public class Administrateur {
         this.reservations = new ArrayList<>();
     }
 
-    public void addRoom(int roomNumber, String roomType) {
+    public void addRoom(int roomNumber, TypeChambre roomType) {
         Chambres chambre = new Chambres(roomNumber, roomType);
         chambres.put(roomNumber, chambre);
     }
 
-    public void modifyRoom(int roomNumber, String newRoomType) {
+    public void modifyRoom(int roomNumber, TypeChambre newRoomType) {
         Chambres chambre = chambres.get(roomNumber);
         if (chambre != null) {
             chambre.setType(newRoomType);
@@ -134,6 +134,20 @@ public class Administrateur {
         // Vous pouvez utiliser une logique personnalisée pour générer l'ID
         // ou utiliser une bibliothèque externe pour générer des UUID
         return reservations.size() + 1;
+    }
+
+    public void displayAvailableRooms() {
+        // Afficher les chambres disponibles
+        // Cette méthode peut être statique car elle n'a pas besoin d'accéder à des champs d'instance
+
+        for (Map.Entry<Integer, Chambres> entry : chambres.entrySet()) {
+            Chambres chambre = entry.getValue();
+            if (!chambre.estReservee()) {
+                System.out.println("Numéro de chambre : " + chambre.getNumero());
+                System.out.println("Type de chambre : " + chambre.getType());
+                System.out.println("--------------------");
+            }
+        }
     }
 
 }
