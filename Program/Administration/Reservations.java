@@ -1,9 +1,9 @@
 package Administration;
 
 import Client.Client;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
 
 public class Reservations {
 
@@ -77,7 +77,6 @@ public class Reservations {
     public String toString() {
         return "Reservations{" + "reservationID=" + reservationID + ", client=" + client + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", nombrePersonnes=" + nombrePersonnes + ", chambres=" + chambres + '}';
     }
-
 
 }
 

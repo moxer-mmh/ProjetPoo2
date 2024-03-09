@@ -1,7 +1,4 @@
 package Main;
-
-import Administration.*;
-import Client.*;
 /**
  * Main
  */

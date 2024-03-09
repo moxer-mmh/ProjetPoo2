@@ -1,6 +1,4 @@
 package Administration;
-import Client.Client;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -60,44 +58,6 @@ public class Chambres {
     @Override
     public String toString() {
         return "Chambres{" + "chambreID=" + chambreID + ", typeChambre=" + typeChambre + ", disponible=" + disponible + ", reservations=" + reservations + '}';
-    }
-
-    public void addReservation(Reservations reservation) {
-        reservations.put(reservation.getReservationID(), reservation);
-    }
-
-    public void removeReservation(int reservationID) {
-        reservations.remove(reservationID);
-    }
-
-    public void displayReservations() {
-        for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
-            System.out.println(entry.getValue());
-        }
-    }
-
-    public void displayReservationsByClient(int clientID) {
-        for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
-            if (entry.getValue().getClient().getClientID() == clientID) {
-                System.out.println(entry.getValue());
-            }
-        }
-    }
-
-    public void displayReservationsByDate(String date) {
-        for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
-            if (entry.getValue().getDateDebut().equals(date) || entry.getValue().getDateFin().equals(date)) {
-                System.out.println(entry.getValue());
-            }
-        }
-    }
-
-    public void displayReservationsByType(TypeChambre type) {
-        for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
-            if (entry.getValue().getChambres().get(entry.getValue().getChambres().size() - 1).getTypeChambre() == type) {
-                System.out.println(entry.getValue());
-            }
-        }
     }
 
 }

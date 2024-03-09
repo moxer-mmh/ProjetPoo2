@@ -1,7 +1,6 @@
 package Client;
 
 import Administration.Reservations;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -82,6 +81,13 @@ public class Client {
     public void setReservations(Map<Integer, Reservations> reservations) {
         this.reservations = reservations;
     }
+
+    //////////////////////////
+
+    public void demanderReservation(Reservations reservation) {
+        reservations.put(reservation.getReservationID(), reservation);
+    }
+
 
     @Override
     public String toString() {
