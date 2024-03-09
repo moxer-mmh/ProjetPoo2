@@ -1,5 +1,6 @@
 package Administration;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Administration {
@@ -14,29 +15,33 @@ public class Administration {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
 
-        while (choice != 0) {
-            System.out.println("Menu Administrateur :");
-            System.out.println("1. Gérer les chambres");
-            System.out.println("2. Gérer les réservations");
-            System.out.println("0. Quitter");
-            System.out.print("Choix : ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+        try {
+            while (choice != 0) {
+                System.out.println("Menu administrateur :");
+                System.out.println("1. Gérer les chambres");
+                System.out.println("2. Gérer les réservations");
+                System.out.println("0. Déconnexion");
+                System.out.print("Choix : ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    manageRooms();
-                    break;
-                case 2:
-                    manageReservations();
-                    break;
-                case 0:
-                    System.out.println("Déconnexion de l'administrateur.");
-                    break;
-                default:
-                    System.out.println("Choix invalide.");
-                    break;
+                switch (choice) {
+                    case 1:
+                        manageRooms();
+                        break;
+                    case 2:
+                        manageReservations();
+                        break;
+                    case 0:
+                        System.out.println("Déconnexion.");
+                        break;
+                    default:
+                        System.out.println("Choix invalide.");
+                        break;
+                }
             }
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
         }
 
         scanner.close();
@@ -90,7 +95,7 @@ public class Administration {
                     break;
                 case 0:
                     System.out.println("Retour au menu administrateur.");
-                    break;
+                    start();
                 default:
                     System.out.println("Choix invalide.");
                     break;
@@ -134,7 +139,7 @@ public class Administration {
                     break;
                 case 0:
                     System.out.println("Retour au menu administrateur.");
-                    break;
+                    start();
                 default:
                     System.out.println("Choix invalide.");
                     break;
