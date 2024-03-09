@@ -1,63 +1,40 @@
 package Administration;
-import java.util.Map;
-import java.util.TreeMap;
-
-enum TypeChambre {
-    SIMPLE, DOUBLE, SUITE
-}
 
 public class Chambres {
 
+    private int numero;
+    private String type;
+    private boolean estReservee;
 
-    private int chambreID;
-    private TypeChambre typeChambre;
-    private boolean disponible;
-    private Map<Integer, Reservations> reservations = new TreeMap<>();
 
-    public Chambres() {
+    public Chambres(int numero, String type) {
+        this.numero = numero;
+        this.type = type;
+        this.estReservee = false;
     }
 
-    public Chambres(int chambreID, TypeChambre typeChambre, boolean disponible) {
-        this.chambreID = chambreID;
-        this.typeChambre = typeChambre;
-        this.disponible = disponible;
+    public int getNumero() {
+        return numero;
     }
 
-    public int getChambreID() {
-        return chambreID;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
-    public void setChambreID(int chambreID) {
-        this.chambreID = chambreID;
+    public String getType() {
+        return type;
     }
 
-    public TypeChambre getTypeChambre() {
-        return typeChambre;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setTypeChambre(TypeChambre typeChambre) {
-        this.typeChambre = typeChambre;
+    public boolean estReservee() {
+        return estReservee;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
-
-    public Map<Integer, Reservations> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(Map<Integer, Reservations> reservations) {
-        this.reservations = reservations;
-    }
-
-    @Override
-    public String toString() {
-        return "Chambres{" + "chambreID=" + chambreID + ", typeChambre=" + typeChambre + ", disponible=" + disponible + ", reservations=" + reservations + '}';
+    public void setEstReservee(boolean estReservee) {
+        this.estReservee = estReservee;
     }
 
 }
