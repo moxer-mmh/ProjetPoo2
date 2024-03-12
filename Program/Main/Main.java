@@ -15,7 +15,7 @@ class Main {
         System.out.println("Bienvenue dans l'application de gestion d'hôtel !");
         System.out.println("Veuillez vous authentifier :");
 
-        
+        // Afficher les options de rôle
         System.out.println("1. Administrateur");
         System.out.println("2. Client");
         System.out.print("Choix : ");
