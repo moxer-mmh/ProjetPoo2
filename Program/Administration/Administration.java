@@ -95,7 +95,7 @@ public class Administration {
                     break;
                 case 0:
                     System.out.println("Retour au menu administrateur.");
-                    start();
+                    return;
                 default:
                     System.out.println("Choix invalide.");
                     break;
@@ -139,7 +139,7 @@ public class Administration {
                     break;
                 case 0:
                     System.out.println("Retour au menu administrateur.");
-                    start();
+                    return;
                 default:
                     System.out.println("Choix invalide.");
                     break;
