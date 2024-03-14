@@ -27,7 +27,6 @@ public class Client {
 
               //chofelna hna yacine kayen exception mahabatch troh
                 choice = scanner.nextInt();
-                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -82,10 +81,13 @@ public class Client {
             String endDate = scanner.nextLine();
 
             Administrateur.requestReservation(roomNumber, startDate, endDate, this.nom, this.prenom);
+            return;
+            
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
 
       scanner.close();
 
