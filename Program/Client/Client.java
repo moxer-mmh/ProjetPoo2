@@ -53,6 +53,7 @@ public class Client {
         scanner.close();
     }
 
+    @SuppressWarnings("resource")
     private void makeReservation() {
       Scanner scanner = new Scanner(System.in);
 

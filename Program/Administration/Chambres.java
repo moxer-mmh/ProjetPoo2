@@ -4,13 +4,13 @@ public class Chambres {
 
     private int numero;
     private TypeChambre type;
-    private boolean estReservee;
+    private EtatChambres estReservee;
 
 
     public Chambres(int numero, TypeChambre type) {
         this.numero = numero;
         this.type = type;
-        this.estReservee = false;
+        this.estReservee = EtatChambres.LIBRE;
     }
 
 
@@ -32,11 +32,11 @@ public class Chambres {
         this.type = type;
     }
 
-    public boolean estReservee() {
+    public EtatChambres estReservee() {
         return estReservee;
     }
 
-    public void setEstReservee(boolean estReservee) {
+    public void setEstReservee(EtatChambres estReservee) {
         this.estReservee = estReservee;
     }
 

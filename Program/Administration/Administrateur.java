@@ -38,11 +38,13 @@ public class Administrateur {
         for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
             Reservations reservation = entry.getValue();
             if (reservation.getEtat() == EtatReservation.EN_ATTENTE) {
+                System.out.println("---------------------------------------------");
+                System.out.println("Nom : " + reservation.getNomClient());
+                System.out.println("Prénom : " + reservation.getPrenomClient());
                 System.out.println("ID de réservation : " + reservation.getId());
                 System.out.println("Numéro de chambre : " + reservation.getChambre().getNumero());
                 System.out.println("Date de début : " + reservation.getDateDebut());
                 System.out.println("Date de fin : " + reservation.getDateFin());
-                System.out.println("--------------------");
             }
         }
     }
@@ -54,7 +56,7 @@ public class Administrateur {
             Reservations reservation = reservations.get(reservationId);
             if (reservation.getEtat() == EtatReservation.EN_ATTENTE) {
                 reservation.setEtat(EtatReservation.CONFIRMEE);
-                reservation.getChambre().setEstReservee(true);
+                reservation.getChambre().setEstReservee(EtatChambres.RESERVEE);
                 System.out.println("Réservation acceptée avec succès !");
             } else {
                 System.out.println("La réservation spécifiée a déjà été traitée.");
@@ -71,6 +73,8 @@ public class Administrateur {
             Reservations reservation = reservations.get(reservationId);
             if (reservation.getEtat() == EtatReservation.EN_ATTENTE) {
                 reservation.setEtat(EtatReservation.ANNULEE);
+                reservation.getChambre().setEstReservee(EtatChambres.LIBRE);
+                reservations.remove(reservationId);
                 System.out.println("Réservation refusée avec succès !");
             } else {
                 System.out.println("La réservation spécifiée a déjà été traitée.");
@@ -85,10 +89,12 @@ public class Administrateur {
             System.out.println("La chambre spécifiée n'existe pas.");
         } else {
             Chambres chambre = chambres.get(roomNumber);
-            if (!chambre.estReservee()) {
+            if (chambre.estReservee() == EtatChambres.LIBRE) {
                 int reservationId = generateReservationId();
                 reservations.put(reservationId, new Reservations(reservationId, chambre, startDate, endDate, nom, prenom));
-                System.out.println("Réservation demandée avec succès !");
+                reservations.get(reservationId).setEtat(EtatReservation.EN_ATTENTE);
+                chambre.setEstReservee(EtatChambres.EN_ATTENTE);
+                System.out.println("Réservation effectuée avec succès !");
             } else {
                 System.out.println("La chambre spécifiée est déjà réservée.");
             }
@@ -125,6 +131,7 @@ public class Administrateur {
             Reservations reservation = reservations.get(reservationId);
             if (reservation.getEtat() == EtatReservation.EN_ATTENTE) {
                 reservations.remove(reservationId);
+                reservation.getChambre().setEstReservee(EtatChambres.LIBRE);
                 System.out.println("Réservation annulée avec succès !");
             } else {
                 System.out.println("La réservation spécifiée a déjà été traitée.");
@@ -157,7 +164,8 @@ public class Administrateur {
     public static void displayAvailableRooms() {
         for (Map.Entry<Integer, Chambres> entry : chambres.entrySet()) {
             Chambres chambre = entry.getValue();
-            if (!chambre.estReservee()) {
+            if (chambre.estReservee() == EtatChambres.LIBRE) {
+                System.out.println("---------------------------------------------");
                 System.out.println("Numéro de chambre : " + chambre.getNumero());
                 System.out.println("Type de chambre : " + chambre.getType());
             }
