@@ -4,19 +4,22 @@ package Administration;
 public class Reservations {
 
     private int id;
+    private String nomClient;
+    private String prenomClient;
     private Chambres chambre;
     private EtatReservation etat;
     private String dateDebut;
     private String dateFin;
 
-    public Reservations(int id, Chambres chambre, String dateDebut, String dateFin) {
+    public Reservations(int id, Chambres chambre, String dateDebut, String dateFin, String nomClient, String prenomClient) {
         this.id = id;
         this.chambre = chambre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.nomClient = nomClient;
+        this.prenomClient = prenomClient;
         this.etat = EtatReservation.EN_ATTENTE;
     }
-
 
     /// Getters & Setters
     public int getId() {
@@ -51,18 +54,15 @@ public class Reservations {
         this.dateFin = dateFin;
     }
 
-    public boolean isBeforeStartDate() {
-        // Vérifier si la date de début est antérieure à la date actuelle
-        // Retourner true si c'est le cas, false sinon
-        // Vous pouvez utiliser une logique personnalisée pour comparer les dates
-        return false;
-    }
-
     public boolean isBeforeStartDate(String newStartDate) {
-        // Vérifier si la nouvelle date de début est antérieure à la date actuelle
-        // Retourner true si c'est le cas, false sinon
-        // Vous pouvez utiliser une logique personnalisée pour comparer les dates
-        return false;
+
+        if (newStartDate.compareTo(this.dateDebut) < 0) {
+            return true;
+        } else {
+            return false;
+            
+        }
+
     }
 
     public EtatReservation getEtat() {
@@ -72,6 +72,24 @@ public class Reservations {
     public void setEtat(EtatReservation etat) {
         this.etat = etat;
     }
+
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
+    public String getPrenomClient() {
+        return prenomClient;
+    }
+
+    public void setPrenomClient(String prenomClient) {
+        this.prenomClient = prenomClient;
+    }
+
+
 
 }
 

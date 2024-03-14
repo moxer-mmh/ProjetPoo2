@@ -13,53 +13,67 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenue dans l'application de gestion d'hôtel !");
-        System.out.println("Veuillez vous authentifier :");
 
-        // Afficher les options de rôle
-        System.out.println("1. Administrateur");
-        System.out.println("2. Client");
-        System.out.print("Choix : ");
-        int roleChoice = scanner.nextInt();
-        scanner.nextLine(); // Ignorer le saut de ligne
+        Administrateur.addRoom( 1, TypeChambre.SIMPLE);
+        Administrateur.addRoom( 2, TypeChambre.DOUBLE);
+        Administrateur.addRoom( 3, TypeChambre.SUITE);
 
-        switch (roleChoice) {
-            case 1:
-                // L'utilisateur est un administrateur
+        int roleChoice = -1;
+
+        try {
+                while (roleChoice != 0) {
                 System.out.println("-----------------------------------------------------------------");
-                System.out.println("Authentification Administrateur :");
-                System.out.print("Nom d'utilisateur : ");
-                String username = scanner.nextLine();
-                System.out.print("Mot de passe : ");
-                String password = scanner.nextLine();
-                if (authenticate(username, password)) {
-                    System.out.println("Authentification réussie !");
-                    System.out.println("-----------------------------------------------------------------");
-                    Administration administration = new Administration();
-                    administration.start();
-                    break;
-                }else{
-                    System.out.println("Authentification échouée. Veuillez réessayer.");
-                    break;
+                System.out.println("Veuillez vous authentifier :");
+
+                System.out.println("1. Administrateur");
+                System.out.println("2. Client");
+                System.out.println("0. Quitter");
+                System.out.print("Choix : ");
+
+                roleChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (roleChoice) {
+                    case 1:
+                        System.out.println("-----------------------------------------------------------------");
+                        System.out.println("Authentification Administrateur :");
+
+                        System.out.print("Nom d'utilisateur : ");
+                        String username = scanner.nextLine();
+
+                        System.out.print("Mot de passe : ");
+                        String password = scanner.nextLine();
+
+                        if (authenticate(username, password)) {
+                            System.out.println("Authentification réussie !");
+                            Administration administration = new Administration();
+                            administration.start();
+                            break;
+                        }else{
+                            System.out.println("Authentification échouée. Veuillez réessayer.");
+                            break;
+                        }
+
+                    case 2:
+                        Client client = new Client();
+                        client.start();
+                        break;
+                    case 0:
+                        System.out.println("Fermeture de l'application.");
+                        break;
+                    default:
+                        System.out.println("Rôle invalide.");
+                        break;
                 }
-
-            case 2:
-                // L'utilisateur est un client
-                System.out.println("-----------------------------------------------------------------");
-                Client client = new Client();
-                client.start();
-                break;
-            default:
-                System.out.println("Rôle invalide.");
-                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         scanner.close();
     }
 
     private static boolean authenticate(String username, String password) {
-        // Vérifier les informations d'authentification
-        // Vous pouvez utiliser une base de données, un service d'authentification externe, etc.
-        // Dans cet exemple, nous utilisons des informations d'identification codées en dur
         return username.equals("admin") && password.equals("admin");
     }
 }

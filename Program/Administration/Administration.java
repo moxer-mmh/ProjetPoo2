@@ -1,26 +1,20 @@
 package Administration;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Administration {
-
-    private Administrateur Administrateur;
-
-    public Administration() {
-        this.Administrateur = new Administrateur();
-    }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
 
         try {
-            while (choice != 0) {
+                while (choice != 0) {
+                System.out.println("-----------------------------------------------------------------");
                 System.out.println("Menu administrateur :");
                 System.out.println("1. Gérer les chambres");
                 System.out.println("2. Gérer les réservations");
-                System.out.println("0. Déconnexion");
+                System.out.println("0. Retour au menu principal");
                 System.out.print("Choix : ");
                 choice = scanner.nextInt();
                 scanner.nextLine();
@@ -33,18 +27,19 @@ public class Administration {
                         manageReservations();
                         break;
                     case 0:
-                        System.out.println("Déconnexion.");
-                        break;
+                        System.out.println("Retour au menu principal.");
+                        return;
                     default:
                         System.out.println("Choix invalide.");
                         break;
                 }
             }
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         scanner.close();
+
     }
 
     private void manageRooms() {
@@ -52,6 +47,7 @@ public class Administration {
         int choice = -1;
 
         while (choice != 0) {
+            System.out.println("-----------------------------------------------------------------");
             System.out.println("Gestion des chambres :");
             System.out.println("1. Ajouter une chambre");
             System.out.println("2. Modifier une chambre");
@@ -72,7 +68,6 @@ public class Administration {
                     TypeChambre roomType = TypeChambre.valueOf(scanner.nextLine());
 
                     Administrateur.addRoom(roomNumber, roomType);
-                    System.out.println("Chambre ajoutée avec succès !");
                     break;
                 case 2:
                     System.out.print("Numéro de chambre à modifier : ");
@@ -83,7 +78,6 @@ public class Administration {
                     TypeChambre newRoomType = TypeChambre.valueOf(scanner.nextLine());
 
                     Administrateur.modifyRoom(roomNumberToModify, newRoomType);
-                    System.out.println("Chambre modifiée avec succès !");
                     break;
                 case 3:
                     System.out.print("Numéro de chambre à supprimer : ");
@@ -91,7 +85,6 @@ public class Administration {
                     scanner.nextLine();
 
                     Administrateur.deleteRoom(roomNumberToDelete);
-                    System.out.println("Chambre supprimée avec succès !");
                     break;
                 case 0:
                     System.out.println("Retour au menu administrateur.");
@@ -110,6 +103,7 @@ public class Administration {
         int choice = -1;
 
         while (choice != 0) {
+            System.out.println("-----------------------------------------------------------------");
             System.out.println("Gestion des réservations :");
             System.out.println("1. Afficher les demandes de réservation");
             System.out.println("2. Accepter une réservation");
