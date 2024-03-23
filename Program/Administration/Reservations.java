@@ -1,23 +1,22 @@
 package Administration;
 
+import Client.Client;
 
 public class Reservations {
 
     private int id;
-    private String nomClient;
-    private String prenomClient;
+    private Client client;
     private Chambres chambre;
     private EtatReservation etat;
     private String dateDebut;
     private String dateFin;
 
-    public Reservations(int id, Chambres chambre, String dateDebut, String dateFin, String nomClient, String prenomClient) {
+    public Reservations(int id, Chambres chambre, String dateDebut, String dateFin, Client client) {
         this.id = id;
         this.chambre = chambre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.nomClient = nomClient;
-        this.prenomClient = prenomClient;
+        this.client = client;
         this.etat = EtatReservation.EN_ATTENTE;
     }
 
@@ -73,22 +72,14 @@ public class Reservations {
         this.etat = etat;
     }
 
-    public String getNomClient() {
-        return nomClient;
+    public Client getClient() {
+        return client;
     }
 
-    public void setNomClient(String nomClient) {
-        this.nomClient = nomClient;
+    public void setClient(Client client) {
+        this.client = client;
     }
-
-    public String getPrenomClient() {
-        return prenomClient;
-    }
-
-    public void setPrenomClient(String prenomClient) {
-        this.prenomClient = prenomClient;
-    }
-
+    
 
 
 }

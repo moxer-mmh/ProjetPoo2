@@ -9,6 +9,13 @@ public class Client {
 
     private String nom;
     private String prenom;
+    private int id;
+
+    public Client(String nom, String prenom, int id) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.id = id;
+    }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -21,6 +28,7 @@ public class Client {
                 System.out.println("1. Faire une réservation");
                 System.out.println("2. Modifier une réservation");
                 System.out.println("3. Annuler une réservation");
+                System.out.println("4. Afficher mes réservations");
                 System.out.println("0. Retour au menu principal");
                 System.out.print("Choix : ");
 
@@ -37,6 +45,9 @@ public class Client {
                         break;
                     case 3:
                         cancelReservation();
+                        break;
+                    case 4:
+                        Administrateur.displayReservationsByClient(this);
                         break;
                     case 0:
                         System.out.println("Retour au menu principal.");
@@ -60,20 +71,13 @@ public class Client {
         try {
             System.out.println("---------------------------------");
             System.out.println("Chambres disponibles :");
-            Administrateur.displayAvailableRooms();
+            Administrateur.displayAvailableRoomsByType();
 
             System.out.println("---------------------------------");
             System.out.println("Veuillez entrer les informations de réservation :");
 
-            System.out.print("Nom : ");
-            this.nom = scanner.nextLine();
-
-            System.out.print("Prénom : ");
-            this.prenom = scanner.nextLine();
-
-            System.out.print("Numéro de chambre : ");
-            int roomNumber = scanner.nextInt();
-            scanner.nextLine();
+            System.out.print("Type de chambre : ");
+            TypeChambre roomType = TypeChambre.valueOf(scanner.nextLine().toUpperCase());
 
             System.out.print("Date de début (jj/mm/aaaa) : ");
             String startDate = scanner.nextLine();
@@ -81,7 +85,7 @@ public class Client {
             System.out.print("Date de fin (jj/mm/aaaa) : ");
             String endDate = scanner.nextLine();
 
-            Administrateur.requestReservation(roomNumber, startDate, endDate, this.nom, this.prenom);
+            Administrateur.requestReservation(roomType, startDate, endDate, this);
             return;
             
 
@@ -140,6 +144,14 @@ public class Client {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

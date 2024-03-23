@@ -32,11 +32,11 @@ public class Chambres {
         this.type = type;
     }
 
-    public EtatChambres estReservee() {
+    public EtatChambres getEtatChambre() {
         return estReservee;
     }
 
-    public void setEstReservee(EtatChambres estReservee) {
+    public void setEtatChambre(EtatChambres estReservee) {
         this.estReservee = estReservee;
     }
 

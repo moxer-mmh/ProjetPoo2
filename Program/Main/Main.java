@@ -4,19 +4,28 @@ package Main;
 import java.util.Scanner;
 import Administration.*;
 import Client.*;
+import javax.swing.SwingUtilities;
+import Design.*;
 
 
 
 
-
-class Main {
+public class Main {
     public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new JMain();
+            }
+        });
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenue dans l'application de gestion d'hôtel !");
 
         Administrateur.addRoom( 1, TypeChambre.SIMPLE);
         Administrateur.addRoom( 2, TypeChambre.DOUBLE);
         Administrateur.addRoom( 3, TypeChambre.SUITE);
+        Administrateur.addRoom( 4, TypeChambre.SIMPLE);
 
         int roleChoice = -1;
 
@@ -55,8 +64,28 @@ class Main {
                         }
 
                     case 2:
-                        Client client = new Client();
-                        client.start();
+                        System.out.println("-----------------------------------------------------------------");
+                        System.out.println("Authentification Client :");
+
+                        System.out.print("Nom : ");
+                        String nom = scanner.nextLine();
+
+                        System.out.print("Prénom : ");
+                        String prenom = scanner.nextLine();
+
+                        if(!Administrateur.getverifclient(nom, prenom)){
+                            Client client = new Client(nom, prenom , Administrateur.getclientsmaxid()+1);
+                            Administrateur.addClient(client);
+                            System.out.println("Vous êtes inscrit. Bienvenue");
+                            System.out.println("Ton id est : "+client.getId());
+                            client.start();
+
+                        }else{
+                            System.out.println("Vous êtes déjà inscrit. Bienvenue");
+                            System.out.println("Ton id est : "+Administrateur.getclientid(nom, prenom));
+                            Client client = new Client(nom, prenom , Administrateur.getclientid(nom, prenom));
+                            client.start();
+                        }
                         break;
                     case 0:
                         System.out.println("Fermeture de l'application.");
@@ -73,7 +102,7 @@ class Main {
         scanner.close();
     }
 
-    private static boolean authenticate(String username, String password) {
+    public static boolean authenticate(String username, String password) {
         return username.equals("admin") && password.equals("admin");
     }
 }
