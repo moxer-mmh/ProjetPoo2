@@ -4,8 +4,9 @@ import java.util.*;
 import Client.*;
 
 public class Administrateur {
-    private static Map<Integer, Chambres> chambres = new TreeMap<>();
-    private static Map<Integer, Reservations> reservations = new TreeMap<>();
+    public static Map<Integer, Chambres> chambres = new TreeMap<>();
+    
+    public static Map<Integer, Reservations> reservations = new TreeMap<>();
     private static Map<Integer, Client> clients = new TreeMap<>();
 
     public static void addRoom(int roomNumber, TypeChambre roomType) {

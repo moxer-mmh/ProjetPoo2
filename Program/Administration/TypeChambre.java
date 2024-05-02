@@ -1,7 +1,7 @@
 package Administration;
 
 public enum TypeChambre {
-    SIMPLE, DOUBLE, SUITE;
+    SIMPLE,DOUBLE,SUITE;
 
     public static void displayTypeChabmre() {
         TypeChambre[] values = TypeChambre.values();

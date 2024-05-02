@@ -5,6 +5,8 @@ import java.util.Scanner;
 import Administration.*;
 import Client.*;
 import javax.swing.SwingUtilities;
+import javax.swing.text.Utilities;
+
 import Design.*;
 
 
@@ -15,7 +17,7 @@ public class Main {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new JMain();
+                new JMain0();
             }
         });
 

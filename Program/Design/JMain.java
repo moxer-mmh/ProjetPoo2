@@ -1,47 +1,89 @@
 package Design;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class JMain extends JFrame implements ActionListener{
+public class JMain extends JFrame {
 
-    public JMain(){
-        super("Bienvenue dans l'application de gestion d'hôtel !");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 500);
-        this.setLocationRelativeTo(null);
-        this.setLayout(new BorderLayout());
+	private static final long serialVersionUID = 1L;
+	private static JPanel contentPane;
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+	/**
+	 * Launch the application.
+	 */
+	
+	static JMain frame = new JMain();
+	public static void main(String[] args) {
+		frame.setVisible(true);
+	}
 
-        JButton adminButton = new JButton("Administrateur");
-        adminButton.addActionListener(this);
-        panel.add(adminButton);
+	/**
+	 * Create the frame.
+	 */
+	
+	
+	public JMain(){
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 676, 511);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        JButton clientButton = new JButton("Client");
-        clientButton.addActionListener(this);
-        panel.add(clientButton);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(251, 79, 218, 273);
+		contentPane.add(panel);
+		
+		JButton btnNewButton_1 = new JButton("Administrateur");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			
+			JAuthentification frame =new JAuthentification();
+			frame.setVisible(true);
+			dispose();
 
-        JButton quitButton = new JButton("Quitter");
-        quitButton.addActionListener(this);
-        panel.add(quitButton);
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1.setBounds(30, 26, 154, 42);
+		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton = new JButton("Client");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				JClient frame =new JClient();
+				frame.setVisible(true);
+				dispose();
+				
 
-        this.add(panel, BorderLayout.CENTER);
-        this.setVisible(true);
-    }
-
-    public void actionPerformed(ActionEvent e){
-        if(e.getActionCommand().equals("Administrateur" ) ){
-            this.dispose();
-            new JAuthentication(1);
-        }else if(e.getActionCommand().equals("Client")){
-            this.dispose();
-            new JAuthentication(2);
-        }else if(e.getActionCommand().equals("Quitter")){
-            System.exit(0);
-        }
-    }
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton.setBounds(30, 104, 154, 42);
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("Quitter");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				dispose();
+			}
+		});
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_2.setBounds(30, 186, 154, 42);
+		panel.add(btnNewButton_2);
+	}
 
 }
