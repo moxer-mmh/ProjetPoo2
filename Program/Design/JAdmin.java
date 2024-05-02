@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import Administration.Administrateur;
 import Administration.EtatReservation;
 import Administration.Reservations;
 
@@ -89,7 +90,8 @@ public class JAdmin extends JFrame {
 		JButton chambre_1 = new JButton("CHAMBRES");
 		chambre_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Administrateur r =new Administrateur();
+			
 				JChambre f =new JChambre();
 				f.setVisible(true);
 				dispose();

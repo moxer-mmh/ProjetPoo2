@@ -6,6 +6,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -13,6 +15,7 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,15 +34,16 @@ import Administration.Reservations;
 import Administration.TypeChambre;
 import Client.Client;
 import javax.swing.JLayeredPane;
+import javax.swing.ListSelectionModel;
 
 public class JMenuClient extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static JTextField prenomC;
-	private JTextField textField_1;
+	private JTextField dateFin;
 	private static JTextField nomC;
-	private JTextField textField_3;
+	private JTextField dateDebut;
 	private JTextField textField_4;
 
 	/**
@@ -47,6 +51,7 @@ public class JMenuClient extends JFrame {
 	 */
 	static JComboBox<TypeChambre> etatChambreC = new JComboBox<TypeChambre>();
 	static int row = 1;
+	static int selectedRow;
 	
 	static Administrateur r = new Administrateur();
 	
@@ -136,10 +141,10 @@ public class JMenuClient extends JFrame {
 		panel_1_1.add(prenomC);
 		
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 49, 105, 25);
-		panel_1_1.add(textField_1);
+		dateFin = new JTextField();
+		dateFin.setColumns(10);
+		dateFin.setBounds(10, 49, 105, 25);
+		panel_1_1.add(dateFin);
 
 		etatChambreC.setModel(new DefaultComboBoxModel(TypeChambre.values()));
 		etatChambreC.setBounds(10, 85, 105, 25);
@@ -156,10 +161,10 @@ public class JMenuClient extends JFrame {
 		nomC.setBounds(10, 20, 108, 24);
 		panel_3.add(nomC);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(10, 51, 108, 24);
-		panel_3.add(textField_3);
+		dateDebut = new JTextField();
+		dateDebut.setColumns(10);
+		dateDebut.setBounds(10, 51, 108, 24);
+		panel_3.add(dateDebut);
 
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
@@ -188,12 +193,46 @@ public class JMenuClient extends JFrame {
            
             // Créer le JTable avec le modèle de données
             tableClient = new JTable(model);
+            tableClient.addMouseListener(new MouseAdapter() {
+            	@Override
+            	public void mouseClicked(MouseEvent e) {
+            	}
+            });
+            tableClient.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
            // pMesReserv.add(tableClient);)
             tableClient.setVisible(true);
 	        getContentPane().setLayout(null);
 	        
 	        // Créer le JScrollPane avec le JTable
 	        JScrollPane scrollPane = new JScrollPane(tableClient);
+			/*
+			 * scrollPane.addMouseListener(new MouseAdapter() {
+			 * 
+			 * @Override public void mouseClicked(MouseEvent e) { if (e.getClickCount() ==
+			 * 2) { // Check for double click
+			 * 
+			 * selectedRow = tableClient.getSelectedRow(); // Assuming you want the value
+			 * from the second column
+			 * 
+			 * // DefaultTableModel model = (DefaultTableModel) table.getModel(); String
+			 * value1 = (String) ((TableModel) tableClient).getValueAt(selectedRow, 5);
+			 * Object value2 = ((TableModel) tableClient).getValueAt(selectedRow, 6); Object
+			 * value3 = ((TableModel) tableClient).getValueAt(selectedRow, 7);
+			 * 
+			 * 
+			 * dateDebut.removeAll(); dateFin.removeAll(); if (selectedRow != -1) {
+			 * dateDebut.setText((String) value2);
+			 * 
+			 * dateFin.setToolTipText((String) value3); // typeChambre.setModel(new
+			 * DefaultComboBoxModel(TypeChambre.values()));
+			 * 
+			 * } else { dateDebut.setText(""); // Or display an error message } }
+			 * 
+			 * }
+			 * 
+			 * 
+			 * } } });
+			 */
 	        scrollPane.setBounds(10, 11, 452, 225);
 	        
 	        pMesReserv.add(scrollPane);
@@ -203,11 +242,20 @@ public class JMenuClient extends JFrame {
 	        pMesReserv.add(panel_1);
 	        panel_1.setLayout(null);
 	        btnAnnuler = new JButton("Annuler");
+	        btnAnnuler.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		
+	        		annulerReservation(nomC.getText(),prenomC.getText());}
+	        });
 	        btnAnnuler.setBounds(6, 34, 83, 23);
 	        panel_1.add(btnAnnuler);
 	       
 	        btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 11));
 	        btnModifier = new JButton("Modifier");
+	        btnModifier.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        	}
+	        });
 	        btnModifier.setBounds(6, 4, 83, 23);
 	        panel_1.add(btnModifier);	        
 	        btnModifier.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -216,13 +264,6 @@ public class JMenuClient extends JFrame {
 	        JButton reservClient = new JButton("Mes RESERVATION");
 			reservClient.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					/*isReservationListPanelVisible = !isReservationListPanelVisible;
-			         pMesReserv.setVisible(isReservationListPanelVisible);
-			         panel_1.setVisible(isReservationListPanelVisible);
-			            if (isReservationListPanelVisible) {
-			                remplirTableReservations(r.reservations, nom, prenom);
-			                
-			            }*/
 					
 					pMesReserv.setBounds(300, 50, 564, 247);
 					contentPane.add(pMesReserv);
@@ -237,7 +278,6 @@ public class JMenuClient extends JFrame {
 			btnReservation.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					
 					pReservation.setVisible(true);
 					Insets insets = pReservation.getInsets(); // Get insets for border padding
 					pReservation.setBounds(300+ insets.left, 20 + insets.top, 800, 700); //
@@ -250,13 +290,13 @@ public class JMenuClient extends JFrame {
 			reservClient.setBounds(20, 195, 197, 42);
 			panel.add(reservClient);
 			
-		
-		
 	}
 
 	
 	
 	public void addReservation(String startDate, String endDate) {
+		startDate= dateDebut.getText();
+		endDate= dateFin.getText();
 
 		JChambre c1 = new JChambre();
 		Client client = new Client(nomC.getText(), prenomC.getText(), row);
@@ -284,9 +324,8 @@ public class JMenuClient extends JFrame {
 						&& chambre.getEtatChambre() == EtatChambres.LIBRE) {
 					roomFound = true;
 					Reservations reservation = new Reservations(row, chambre, startDate, endDate, client);
-					System.out.println(chambre.getNumero() + client.getNom() + "YYYYYYYYYYYY");
 					r.reservations.put(row, reservation);
-					chambre.setEtatChambre(EtatChambres.RESERVEE);
+					chambre.setEtatChambre(EtatChambres.EN_ATTENTE);
 					System.out.println("Réservation effectuée avec succès !");
 					++row;
 					break;
@@ -320,7 +359,7 @@ public class JMenuClient extends JFrame {
 
 	    private void annulerReservation(String nomClient, String prenomClient) {
 	    	
-	    	JMenuClient m=new JMenuClient(nomClient,prenomClient);
+	    	//JMenuClient m=new JMenuClient(nomClient,prenomClient);
 	        // Code pour annuler la réservation sélectionnée
 	        Administrateur r = new Administrateur();
 
@@ -332,12 +371,13 @@ public class JMenuClient extends JFrame {
 	            if (client.getNom().equals(nomClient) && client.getPrenom().equals(prenomClient) && reservation.getId() == selectedReservationId) {
 	                // Annuler la réservation en modifiant son état
 	                reservation.setEtat(EtatReservation.ANNULEE);
+	                reservation.getChambre().setEtatChambre(EtatChambres.LIBRE);
 	                System.out.println("Réservation " + selectedReservationId + " annulée avec succès.");
 
 	                // Mettre à jour la ligne correspondante dans la JTable
 	                int row = getRowFromReservationId(selectedReservationId,nomClient, prenomClient);
 	                if (row != -1) {
-	                    model.setValueAt(reservation.getEtat(), row, 5);
+	                    model.setValueAt(reservation.getEtat(), row,5);
 	                }
 	                break;
 	            }
@@ -381,6 +421,8 @@ public class JMenuClient extends JFrame {
 	        	                    selectedReservationId = (int) tableClient.getValueAt(row, 0); // Récupérer l'ID de la réservation
 	        	                    selectedReservationEtat = (EtatReservation) tableClient.getValueAt(row, 5); // Récupérer l'état de la réservation
 	        	                    System.out.println("Réservation sélectionnée : " + selectedReservationId + ", État : " + selectedReservationEtat);
+	        	                    
+	        	               
 	        	                }
 	        	            }
 	        	        

@@ -88,11 +88,10 @@ public class JAuthentification extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[] value2=pwd.getPassword();
+				String motDePasse = String.valueOf(value2);
 		
-				System.out.println(utilisateur.getText()+"  "+ value2.toString());
-				if(utilisateur.getText().equals("admin") ){
-					
-                  
+				if(utilisateur.getText().equals("admin")  && motDePasse.equals("admin")  ){
+				
     				JAdmin frame33 =new JAdmin();
     				frame33.setVisible(true);
     				dispose();

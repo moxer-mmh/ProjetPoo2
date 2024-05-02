@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Administration.Administrateur;
 import Administration.Chambres;
+import Administration.EtatChambres;
 import Administration.EtatReservation;
 import Administration.Reservations;
 import Administration.TypeChambre;
@@ -32,6 +33,7 @@ public class JReservation extends JFrame {
      static  JTable table;
     private int selectedReservationId = -1; // ID de la réservation sélectionnée
     private EtatReservation selectedReservationEtat; // État de la réservation sélectionnée
+    
 
     
     public static void main(String[] args) {
@@ -61,53 +63,16 @@ public class JReservation extends JFrame {
             new String[] { "ID", "Client", "Chambre", "Date Début", "Date Fin", "État"} // Noms des colonnes
         );
 
-        // Remplir le modèle avec les données des réservations
-     // Créer quelques réservations de test
-     
-		/*
-		 * Chambres chambre1 = new Chambres(101, TypeChambre.SIMPLE); Client client1 =
-		 * new Client( "Doe", "John", 1234567890); Reservations reservation1 = new
-		 * Reservations(1, chambre1, "2023-05-01", "2023-05-05", client1);
-		 * reservations.put(1, reservation1);
-		 * 
-		 * Chambres chambre2 = new Chambres(201, TypeChambre.DOUBLE); Client client2 =
-		 * new Client( "Smith", "Jane", 7654321); Reservations reservation2 = new
-		 * Reservations(2, chambre2, "2023-06-10", "2023-06-15", client2);
-		 * reservations.put(2, reservation2);
-		 */
         
         Administrateur adm=new Administrateur();
+        
+        Map<Integer, Chambres> chambres = adm.chambres;
         
         for (Map.Entry<Integer, Reservations> entry : adm.reservations.entrySet()) {
             Reservations reservation = entry.getValue();
             Client client = reservation.getClient();
             String clientName = client.getNom() + " " + client.getPrenom();
 
-     /*       // Créer les boutons d'action
-            JButton acceptButton = new JButton("✓");
-            JButton declineButton = new JButton("✗");
-
-            // Créer un JPanel pour les boutons
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.add(acceptButton);
-            buttonPanel.add(declineButton);
-
-            // Ajouter les ActionListeners aux boutons (si nécessaire)
-            acceptButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    // Code à exécuter lorsque l'on clique sur "VRAI"
-                    reservation.setEtat(EtatReservation.CONFIRMEE);
-                    model.fireTableDataChanged(); // Actualiser le tableau
-                }
-            });
-
-            declineButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    // Code à exécuter lorsque l'on clique sur "X"
-                    reservation.setEtat(EtatReservation.ANNULEE);
-                    model.fireTableDataChanged(); // Actualiser le tableau
-                }
-            });*/
 
             Object[] row = {
                 reservation.getId(),
@@ -135,14 +100,19 @@ public class JReservation extends JFrame {
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                if (row >= 0) {
-                    selectedReservationId = (int) table.getValueAt(row, 0); // Récupérer l'ID de la réservation
-                    selectedReservationEtat = (EtatReservation) table.getValueAt(row, 5); // Récupérer l'état de la réservation
-                    System.out.println("Réservation sélectionnée : " + selectedReservationId + ", État : " + selectedReservationEtat);
+            	
+            		int row = table.rowAtPoint(e.getPoint());
+            		if (row >= 0) {
+            			selectedReservationId = (int) table.getValueAt(row, 0); // Récupérer l'ID de la réservation
+            			selectedReservationEtat = (EtatReservation) table.getValueAt(row, 5); // Récupérer l'état de la réservation
+            			System.out.println("Réservation sélectionnée : " + selectedReservationId + ", État : " + selectedReservationEtat);
                 }
             }
+            
         });
+        
+        
+        
         
         JButton retour = new JButton("RETOUR");
 		retour.addActionListener(new ActionListener() {
@@ -167,6 +137,10 @@ public class JReservation extends JFrame {
                     Reservations reservation = adm.reservations.get(selectedReservationId);
                     if (reservation != null) {
                         reservation.setEtat(EtatReservation.CONFIRMEE); // Mettre à jour l'état de la réservation
+                        
+                        Chambres chambre = reservation.getChambre();
+                        chambre.setEtatChambre(EtatChambres.RESERVEE);
+						 
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
                         model.setValueAt(EtatReservation.CONFIRMEE, table.getSelectedRow(), 5); // Mettre à jour la table
                     }
@@ -183,6 +157,10 @@ public class JReservation extends JFrame {
                     Reservations reservation = adm.reservations.get(selectedReservationId);
                     if (reservation != null) {
                         reservation.setEtat(EtatReservation.ANNULEE); // Mettre à jour l'état de la réservation
+                        
+                        Chambres chambre = reservation.getChambre();
+                        chambre.setEtatChambre(EtatChambres.LIBRE);
+                        
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
                         model.setValueAt(EtatReservation.ANNULEE, table.getSelectedRow(), 5); // Mettre à jour la table
                     }
