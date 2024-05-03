@@ -35,6 +35,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class JChambre extends JFrame {
 
@@ -47,7 +48,7 @@ public class JChambre extends JFrame {
 	static JComboBox<EtatChambres> etatChambre = new JComboBox<EtatChambres>();
 
 	
-	static int row = 1;
+	static int row ;
 	
 	static int selectedRow;
 
@@ -75,7 +76,6 @@ public class JChambre extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-
 					numChambre.setText(String.valueOf(row));
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -321,7 +321,7 @@ public class JChambre extends JFrame {
 
 	public static void addRoom(int roomNumber, TypeChambre roomType) {
 	
-		;
+		roomNumber = Integer.parseInt(numChambre.getText());
 		// int num=Integer.parseInt(numChambre.getText());
 
 		roomType = (TypeChambre) typeChambre.getSelectedItem();
