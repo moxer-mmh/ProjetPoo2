@@ -5,7 +5,7 @@ import Client.*;
 
 public class Administrateur {
     public static Map<Integer, Chambres> chambres = new TreeMap<>();
-    
+
     public static Map<Integer, Reservations> reservations = new TreeMap<>();
     private static Map<Integer, Client> clients = new TreeMap<>();
 
@@ -55,7 +55,8 @@ public class Administrateur {
         System.out.println("Réservations pour " + client.getNom() + " " + client.getPrenom() + " :");
         for (Map.Entry<Integer, Reservations> entry : reservations.entrySet()) {
             Reservations reservation = entry.getValue();
-            if (reservation.getClient().getNom().equals(client.getNom()) && reservation.getClient().getPrenom().equals(client.getPrenom())) {
+            if (reservation.getClient().getNom().equals(client.getNom())
+                    && reservation.getClient().getPrenom().equals(client.getPrenom())) {
                 System.out.println("---------------------------------------------");
                 System.out.println("ID de réservation : " + reservation.getId());
                 System.out.println("Numéro de chambre : " + reservation.getChambre().getNumero());
@@ -100,7 +101,7 @@ public class Administrateur {
 
     }
 
-    public static void requestReservation(TypeChambre TypeChambre, String startDate, String endDate , Client client) {
+    public static void requestReservation(TypeChambre TypeChambre, String startDate, String endDate, Client client) {
         if (chambres == null || chambres.isEmpty()) {
             System.out.println("Aucune chambre n'est disponible.");
         } else {
@@ -109,7 +110,8 @@ public class Administrateur {
                 Chambres chambre = entry.getValue();
                 if (chambre.getType() == TypeChambre && chambre.getEtatChambre() == EtatChambres.LIBRE) {
                     roomFound = true;
-                    Reservations reservation = new Reservations(generateReservationId(), chambre, startDate, endDate, client);
+                    Reservations reservation = new Reservations(generateReservationId(), chambre, startDate, endDate,
+                            client);
                     reservations.put(reservation.getId(), reservation);
                     chambre.setEtatChambre(EtatChambres.RESERVEE);
                     System.out.println("Réservation effectuée avec succès !");
@@ -160,16 +162,17 @@ public class Administrateur {
 
     }
 
-    /*private static Reservations findReservationById(int reservationId) {
-
-        if (reservations == null || !reservations.containsKey(reservationId)) {
-            return null;
-        } else {
-            return reservations.get(reservationId);
-        }
-
-    }
-*/
+    /*
+     * private static Reservations findReservationById(int reservationId) {
+     * 
+     * if (reservations == null || !reservations.containsKey(reservationId)) {
+     * return null;
+     * } else {
+     * return reservations.get(reservationId);
+     * }
+     * 
+     * }
+     */
 
     private static int generateReservationId() {
 
@@ -208,7 +211,7 @@ public class Administrateur {
 
     }
 
-    public static boolean getverifclient(String nom , String prenom){
+    public static boolean getverifclient(String nom, String prenom) {
         for (Map.Entry<Integer, Client> entry : clients.entrySet()) {
             Client client = entry.getValue();
             if (client.getNom().equals(nom) && client.getPrenom().equals(prenom)) {
@@ -218,7 +221,7 @@ public class Administrateur {
         return false;
     }
 
-    public static int getclientid(String nom , String prenom){
+    public static int getclientid(String nom, String prenom) {
         for (Map.Entry<Integer, Client> entry : clients.entrySet()) {
             Client client = entry.getValue();
             if (client.getNom().equals(nom) && client.getPrenom().equals(prenom)) {
@@ -228,7 +231,7 @@ public class Administrateur {
         return 0;
     }
 
-    public static int getclientsmaxid(){
+    public static int getclientsmaxid() {
         int max = 0;
         for (Map.Entry<Integer, Client> entry : clients.entrySet()) {
             Client client = entry.getValue();
@@ -239,11 +242,11 @@ public class Administrateur {
         return max;
     }
 
-    public static void addClient(Client client){
+    public static void addClient(Client client) {
         clients.put(client.getId(), client);
     }
 
-    //getters and setters
+    // getters and setters
 
     public static Map<Integer, Chambres> getChambres() {
         return chambres;
@@ -269,4 +272,15 @@ public class Administrateur {
         Administrateur.clients = clients;
     }
 
+    public static void DATAinit(){
+        for (int i = 1; i <= 10; i++) {
+            chambres.put(i, new Chambres(i, TypeChambre.SIMPLE));
+		}
+        for (int i = 11; i <= 20; i++) {
+            chambres.put(i, new Chambres(i, TypeChambre.DOUBLE));
+        }
+        for (int i = 21; i <= 30; i++) {
+            chambres.put(i, new Chambres(i, TypeChambre.SUITE));
+        }
+    }
 }

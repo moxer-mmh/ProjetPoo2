@@ -9,7 +9,7 @@ public class Administration {
         int choice = -1;
 
         try {
-                while (choice != 0) {
+            while (choice != 0) {
                 System.out.println("-----------------------------------------------------------------");
                 System.out.println("Menu administrateur :");
                 System.out.println("1. Gérer les chambres");

@@ -6,13 +6,11 @@ public class Chambres {
     private TypeChambre type;
     private EtatChambres estReservee;
 
-
     public Chambres(int numero, TypeChambre type) {
         this.numero = numero;
         this.type = type;
         this.estReservee = EtatChambres.LIBRE;
     }
-
 
     /// Getters & Setters
 
@@ -41,5 +39,3 @@ public class Chambres {
     }
 
 }
-
-

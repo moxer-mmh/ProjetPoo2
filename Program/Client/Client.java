@@ -32,8 +32,7 @@ public class Client {
                 System.out.println("0. Retour au menu principal");
                 System.out.print("Choix : ");
 
-
-              //chofelna hna yacine kayen exception mahabatch troh
+                // chofelna hna yacine kayen exception mahabatch troh
                 choice = scanner.nextInt();
 
                 switch (choice) {
@@ -58,7 +57,7 @@ public class Client {
                 }
             }
         } catch (NoSuchElementException e) {
-          System.out.println("Invalid input. Please enter a valid choice.");
+            System.out.println("Invalid input. Please enter a valid choice.");
         }
 
         scanner.close();
@@ -66,7 +65,7 @@ public class Client {
 
     @SuppressWarnings("resource")
     private void makeReservation() {
-      Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         try {
             System.out.println("---------------------------------");
@@ -87,14 +86,12 @@ public class Client {
 
             Administrateur.requestReservation(roomType, startDate, endDate, this);
             return;
-            
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
 
-      scanner.close();
+        scanner.close();
 
     }
 
@@ -154,9 +151,4 @@ public class Client {
         this.id = id;
     }
 
-
 }
-
-
-
-

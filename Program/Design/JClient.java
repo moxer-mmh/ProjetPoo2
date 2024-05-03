@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Administration.Chambres;
 import Client.Client;
 
 import javax.swing.JTextField;
@@ -26,11 +25,11 @@ public class JClient extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
-	 private static Map<Integer, Client> clients = new TreeMap<>();
-	 static  int row=1;
-	 private JButton btnNewButton_1;
-	 
+
+	private static Map<Integer, Client> clients = new TreeMap<>();
+	static int row = 1;
+	private JButton btnNewButton_1;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,22 +54,22 @@ public class JClient extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(59, 32, 290, 130);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		nomClient = new JTextField();
 		nomClient.setBounds(21, 11, 186, 37);
 		panel.add(nomClient);
 		nomClient.setColumns(10);
-		
+
 		prenomClient = new JTextField();
 		prenomClient.setColumns(10);
 		prenomClient.setBounds(21, 59, 186, 37);
 		panel.add(prenomClient);
-		
+
 		JButton btnNewButton = new JButton("Entrer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +79,7 @@ public class JClient extends JFrame {
 		});
 		btnNewButton.setBounds(220, 173, 104, 37);
 		contentPane.add(btnNewButton);
-		
+
 		btnNewButton_1 = new JButton("Retour");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,55 +87,46 @@ public class JClient extends JFrame {
 				JMain windowToBeClosed = new JMain();
 				windowToBeClosed.setVisible(true);
 				dispose();
-				
+
 			}
 		});
 		btnNewButton_1.setBounds(50, 197, 89, 23);
 		contentPane.add(btnNewButton_1);
 	}
-	
-	 public static void addClient() {
-	        String nom = nomClient.getText();
-	        String prenom = prenomClient.getText();
 
-	        // Vérifier si le client existe déjà dans la map
-	        for (Client c : clients.values()) {
-	            if (c.getNom().equals(nom) && c.getPrenom().equals(prenom)) {
-	                System.out.println("Le client existe déjà.");
-	                JMenuClient f = new JMenuClient(nom, prenom);
-	                f.setVisible(true);
-	                return; // Sortir de la méthode après avoir ouvert la fenêtre JMenuClient
-	            }
-	        }
+	public static void addClient() {
+		String nom = nomClient.getText();
+		String prenom = prenomClient.getText();
 
-	        // Si le client n'existe pas, créer un nouveau client
-	        Client client = new Client(nom, prenom, row);
-	        clients.put(row, client);
-	        System.out.println("Nouveau client créé avec l'ID : " + row);
-	        ++row;
+		// Vérifier si le client existe déjà dans la map
+		for (Client c : clients.values()) {
+			if (c.getNom().equals(nom) && c.getPrenom().equals(prenom)) {
+				System.out.println("Le client existe déjà.");
+				JMenuClient f = new JMenuClient(nom, prenom);
+				f.setVisible(true);
+				return; // Sortir de la méthode après avoir ouvert la fenêtre JMenuClient
+			}
+		}
 
-	        JMenuClient f = new JMenuClient(nom, prenom);
-	        f.setVisible(true);
-	    }
-	 
-	 public static void listeClient() {
-		 int rowIndex = 0;
-         
-   
-		 
-		 for (Client rowList : clients.values()) {
-			 
-			 Object[] data = {rowList.getId(), rowList.getNom(), rowList.getPrenom()} ;
-			  System.out.println(rowList.getNom());
-			// modelT.addRow(data);
-				    rowIndex++;
-				}
-		      
-	        // Création d'un JTable
-	     //   table.setModel(modelT);
-	  	
-		
-	 }
+		// Si le client n'existe pas, créer un nouveau client
+		Client client = new Client(nom, prenom, row);
+		clients.put(row, client);
+		System.out.println("Nouveau client créé avec l'ID : " + row);
+		++row;
 
+		JMenuClient f = new JMenuClient(nom, prenom);
+		f.setVisible(true);
+	}
+
+	public static void listeClient() {
+		for (Client rowList : clients.values()) {
+
+			System.out.println(rowList.getNom());
+		}
+
+		// Création d'un JTable
+		// table.setModel(modelT);
+
+	}
 
 }

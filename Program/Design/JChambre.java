@@ -5,30 +5,26 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.EventObject;
-import java.util.Map;
-import java.util.TreeMap;
 import java.awt.event.ActionEvent;
 
 import Administration.Administrateur;
 import Administration.Chambres;
 import Administration.EtatChambres;
-import Administration.EtatReservation;
 import Administration.TypeChambre;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -37,12 +33,8 @@ import javax.swing.table.TableModel;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.NumberFormat;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JFormattedTextField;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class JChambre extends JFrame {
 
@@ -53,8 +45,10 @@ public class JChambre extends JFrame {
 
 	static JComboBox<TypeChambre> typeChambre = new JComboBox<TypeChambre>();
 	static JComboBox<EtatChambres> etatChambre = new JComboBox<EtatChambres>();
+
 	
 	static int row = 1;
+	
 	static int selectedRow;
 
 	Administrateur r = new Administrateur();
@@ -94,11 +88,11 @@ public class JChambre extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("serial")
+	@SuppressWarnings({ "serial", "rawtypes", "unchecked" })
 	public JChambre() {
+		
 
 		modelT = new DefaultTableModel(new Object[][] {}, new String[] { "Num", "Type", "Etat" });
-
 		listeRoom();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,7 +120,7 @@ public class JChambre extends JFrame {
 		lblTypechambre.setFont(new Font("Arial", Font.BOLD, 14));
 		lblTypechambre.setBounds(285, 11, 131, 36);
 		panel.add(lblTypechambre);
-		
+
 		JLabel lblEtatchambre = new JLabel("Etat-CHAMBRE");
 		lblEtatchambre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEtatchambre.setFont(new Font("Arial", Font.BOLD, 14));
@@ -153,24 +147,22 @@ public class JChambre extends JFrame {
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedRow = table.getSelectedRow();
-				
-				  Chambres chambre = r.chambres.get(selectedRow+1);//indice de la map commance +1 SI ON le compare avec l indice de la table
-				  
-				  if (chambre != null) {
-					  
-					 chambre.setType((TypeChambre) typeChambre.getSelectedItem()); 
-					 chambre.setEtatChambre((EtatChambres) etatChambre.getSelectedItem());
-					 
 
-						// table.setModel(tableModel);
-						modelT = (DefaultTableModel) table.getModel();
+				Chambres chambre = Administrateur.chambres.get(selectedRow + 1);// indice de la map commance +1 SI ON le compare avec
+																	// l indice de la table
 
-						
-						modelT.setValueAt(typeChambre.getSelectedItem(), selectedRow, 1);
-						modelT.setValueAt(etatChambre.getSelectedItem(), selectedRow, 2);
-				  
-				  }
-				 
+				if (chambre != null) {
+
+					chambre.setType((TypeChambre) typeChambre.getSelectedItem());
+					chambre.setEtatChambre((EtatChambres) etatChambre.getSelectedItem());
+
+					// table.setModel(tableModel);
+					modelT = (DefaultTableModel) table.getModel();
+
+					modelT.setValueAt(typeChambre.getSelectedItem(), selectedRow, 1);
+					modelT.setValueAt(etatChambre.getSelectedItem(), selectedRow, 2);
+
+				}
 
 				// Création d'un JT4able
 				table.setModel(modelT);
@@ -238,12 +230,13 @@ public class JChambre extends JFrame {
 		numChambre.setBounds(117, 47, 131, 30);
 		panel.add(numChambre);
 		numChambre.setColumns(10);
-		
-		
+
 		etatChambre.setModel(new DefaultComboBoxModel(EtatChambres.values()));
 		etatChambre.setBackground(Color.WHITE);
 		etatChambre.setBounds(460, 44, 131, 30);
 		panel.add(etatChambre);
+
+		
 
 		JLabel lblNewLabel_1 = new JLabel("INFORMATION CHAMBRES");
 		lblNewLabel_1.setForeground(new Color(0, 64, 64));
@@ -256,28 +249,29 @@ public class JChambre extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { // Check for double click
 
 					selectedRow = table.getSelectedRow();
-					 // Assuming you want the value from the second column
+					// Assuming you want the value from the second column
 
 					// DefaultTableModel model = (DefaultTableModel) table.getModel();
 					Object value1 = ((TableModel) modelT).getValueAt(selectedRow, 0);
 					Object value2 = ((TableModel) modelT).getValueAt(selectedRow, 1);
 					Object value3 = ((TableModel) modelT).getValueAt(selectedRow, 2);
-					
+
 					typeChambre.removeAllItems();
 					etatChambre.removeAllItems();
 					if (selectedRow != -1) {
 						numChambre.setText(value1 == null ? "" : value1.toString());
 
 						typeChambre.addItem((TypeChambre) value2);
-						
+
 						etatChambre.addItem((EtatChambres) value3);
-						
+
 						// typeChambre.setModel(new DefaultComboBoxModel(TypeChambre.values()));
 
 					} else {
@@ -302,6 +296,9 @@ public class JChambre extends JFrame {
 			}
 		});
 
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(102, 30, 551, 274);
+		panel_2.add(scrollPane);
 		/*
 		 * for(Entry<Integer, Chambres> entry : chambre.entrySet()){ model.add(row,
 		 * chambre.get(model)); row++; }
@@ -310,14 +307,11 @@ public class JChambre extends JFrame {
 	}
 
 	public void listeRoom() {
-		int rowIndex = 0;
-
-		for (Chambres rowList : r.chambres.values()) {
+		for (Chambres rowList : Administrateur.chambres.values()) {
 
 			Object[] data = { rowList.getNumero(), rowList.getType(), rowList.getEtatChambre() };
 			System.out.println(rowList.getNumero());
 			modelT.addRow(data);
-			rowIndex++;
 		}
 
 		// Création d'un JTable
@@ -325,15 +319,16 @@ public class JChambre extends JFrame {
 
 	}
 
-	public void addRoom(int roomNumber, TypeChambre roomType) {
+	public static void addRoom(int roomNumber, TypeChambre roomType) {
+	
 		;
 		// int num=Integer.parseInt(numChambre.getText());
 
 		roomType = (TypeChambre) typeChambre.getSelectedItem();
 
-		if (r.chambres == null || !r.chambres.containsKey(roomNumber)) {
+		if (Administrateur.chambres == null || !Administrateur.chambres.containsKey(roomNumber)) {
 
-			r.chambres.put(roomNumber, new Chambres(roomNumber, roomType));
+			Administrateur.chambres.put(roomNumber, new Chambres(roomNumber, roomType));
 			System.out.println("Chambre ajoutée avec succès !");
 
 			numChambre.setText(String.valueOf(roomNumber));
@@ -353,4 +348,5 @@ public class JChambre extends JFrame {
 
 		}
 	}
+
 }

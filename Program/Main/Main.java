@@ -1,16 +1,10 @@
 package Main;
 
-
 import java.util.Scanner;
 import Administration.*;
 import Client.*;
 import javax.swing.SwingUtilities;
-import javax.swing.text.Utilities;
-
 import Design.*;
-
-
-
 
 public class Main {
     public static void main(String[] args) {
@@ -24,15 +18,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenue dans l'application de gestion d'hôtel !");
 
-        Administrateur.addRoom( 1, TypeChambre.SIMPLE);
-        Administrateur.addRoom( 2, TypeChambre.DOUBLE);
-        Administrateur.addRoom( 3, TypeChambre.SUITE);
-        Administrateur.addRoom( 4, TypeChambre.SIMPLE);
+        Administrateur.addRoom(1, TypeChambre.SIMPLE);
+        Administrateur.addRoom(2, TypeChambre.DOUBLE);
+        Administrateur.addRoom(3, TypeChambre.SUITE);
+        Administrateur.addRoom(4, TypeChambre.SIMPLE);
 
         int roleChoice = -1;
 
         try {
-                while (roleChoice != 0) {
+            while (roleChoice != 0) {
                 System.out.println("-----------------------------------------------------------------");
                 System.out.println("Veuillez vous authentifier :");
 
@@ -60,7 +54,7 @@ public class Main {
                             Administration administration = new Administration();
                             administration.start();
                             break;
-                        }else{
+                        } else {
                             System.out.println("Authentification échouée. Veuillez réessayer.");
                             break;
                         }
@@ -75,17 +69,17 @@ public class Main {
                         System.out.print("Prénom : ");
                         String prenom = scanner.nextLine();
 
-                        if(!Administrateur.getverifclient(nom, prenom)){
-                            Client client = new Client(nom, prenom , Administrateur.getclientsmaxid()+1);
+                        if (!Administrateur.getverifclient(nom, prenom)) {
+                            Client client = new Client(nom, prenom, Administrateur.getclientsmaxid() + 1);
                             Administrateur.addClient(client);
                             System.out.println("Vous êtes inscrit. Bienvenue");
-                            System.out.println("Ton id est : "+client.getId());
+                            System.out.println("Ton id est : " + client.getId());
                             client.start();
 
-                        }else{
+                        } else {
                             System.out.println("Vous êtes déjà inscrit. Bienvenue");
-                            System.out.println("Ton id est : "+Administrateur.getclientid(nom, prenom));
-                            Client client = new Client(nom, prenom , Administrateur.getclientid(nom, prenom));
+                            System.out.println("Ton id est : " + Administrateur.getclientid(nom, prenom));
+                            Client client = new Client(nom, prenom, Administrateur.getclientid(nom, prenom));
                             client.start();
                         }
                         break;
@@ -108,8 +102,3 @@ public class Main {
         return username.equals("admin") && password.equals("admin");
     }
 }
-
-
-
-
-

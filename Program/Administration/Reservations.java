@@ -59,7 +59,7 @@ public class Reservations {
             return true;
         } else {
             return false;
-            
+
         }
 
     }
@@ -79,8 +79,5 @@ public class Reservations {
     public void setClient(Client client) {
         this.client = client;
     }
-    
-
 
 }
-

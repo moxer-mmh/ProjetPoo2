@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class JMain0 extends JFrame implements ActionListener{
-	
-	
+public class JMain0 extends JFrame implements ActionListener {
 
-    public JMain0(){
+    public JMain0() {
         super("Bienvenue dans l'application de gestion d'hôtel !");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 500);
@@ -34,14 +32,14 @@ public class JMain0 extends JFrame implements ActionListener{
         this.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e){
-        if(e.getActionCommand().equals("Administrateur" ) ){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("Administrateur")) {
             this.dispose();
             new JAuthentication0(1);
-        }else if(e.getActionCommand().equals("Client")){
+        } else if (e.getActionCommand().equals("Client")) {
             this.dispose();
             new JAuthentication0(2);
-        }else if(e.getActionCommand().equals("Quitter")){
+        } else if (e.getActionCommand().equals("Quitter")) {
             System.exit(0);
         }
     }
