@@ -1,22 +1,25 @@
-package Administration;
+package Model;
 
-import Client.Client;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class Reservations {
+public class Reservation {
 
     private int id;
     private Client client;
-    private Chambres chambre;
+    private Chambre chambre;
     private EtatReservation etat;
     private String dateDebut;
     private String dateFin;
+    
+    public static Map<Integer, Reservation> reservations = new TreeMap<>();
 
-    public Reservations(int id, Chambres chambre, String dateDebut, String dateFin, Client client) {
+    public Reservation(int id, Chambre chambre, String dateDebut, String dateFin, Client client2) {
         this.id = id;
         this.chambre = chambre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.client = client;
+        this.client = client2;
         this.etat = EtatReservation.EN_ATTENTE;
     }
 
@@ -29,11 +32,11 @@ public class Reservations {
         this.id = id;
     }
 
-    public Chambres getChambre() {
+    public Chambre getChambre() {
         return chambre;
     }
 
-    public void setChambre(Chambres chambre) {
+    public void setChambre(Chambre chambre) {
         this.chambre = chambre;
     }
 
@@ -59,7 +62,7 @@ public class Reservations {
             return true;
         } else {
             return false;
-
+            
         }
 
     }
@@ -79,5 +82,16 @@ public class Reservations {
     public void setClient(Client client) {
         this.client = client;
     }
+    
+    public static Map<Integer, Reservation> getReservations() {
+        return reservations;
+    }
+
+    public static void setReservations( Map<Integer, Reservation>  newValue) {
+        // Add validation logic here if needed
+    	reservations = newValue;
+    }
+
 
 }
+
