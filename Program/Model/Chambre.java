@@ -10,13 +10,11 @@ public class Chambre {
     private EtatChambres estReservee;
     public static Map<Integer, Chambre> chambres = new TreeMap<>();
 
-
     public Chambre(int numero, TypeChambre type) {
         this.numero = numero;
         this.type = type;
         this.estReservee = EtatChambres.LIBRE;
     }
-
 
     /// Getters & Setters
 
@@ -43,19 +41,14 @@ public class Chambre {
     public void setEtatChambre(EtatChambres estReservee) {
         this.estReservee = estReservee;
     }
-    
-    
+
     public static Map<Integer, Chambre> getChambres() {
         return chambres;
     }
 
-    public static void setChambres( Map<Integer, Chambre>  newValue) {
+    public static void setChambres(Map<Integer, Chambre> newValue) {
         // Add validation logic here if needed
-    	chambres = newValue;
+        chambres = newValue;
     }
 
-
-
 }
-
-

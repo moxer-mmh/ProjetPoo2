@@ -1,47 +1,42 @@
 package Model;
 
-import java.util.Map;
-
-import javax.swing.JComboBox;
-
 public class Client {
 
-    private String nom;
-    private String prenom;
-    private int id;
+	private String nom;
+	private String prenom;
+	private int id;
 
-    public Client(String nom, String prenom, int id) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.id = id;
-    }
+	public Client(String nom, String prenom, int id) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.id = id;
+	}
 
-   
-    /// Getters & Setters
+	/// Getters & Setters
 
-    public String getNom() {
-        return nom;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public String getPrenom() {
+		return prenom;
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/*
 	 * public static void makeReservation(String startDate, String
@@ -77,10 +72,5 @@ public class Client {
 	 * } } }
 	 * 
 	 */
-    
 
 }
-
-
-
-

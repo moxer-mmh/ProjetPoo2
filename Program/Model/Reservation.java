@@ -11,7 +11,7 @@ public class Reservation {
     private EtatReservation etat;
     private String dateDebut;
     private String dateFin;
-    
+
     public static Map<Integer, Reservation> reservations = new TreeMap<>();
 
     public Reservation(int id, Chambre chambre, String dateDebut, String dateFin, Client client2) {
@@ -62,7 +62,7 @@ public class Reservation {
             return true;
         } else {
             return false;
-            
+
         }
 
     }
@@ -82,16 +82,14 @@ public class Reservation {
     public void setClient(Client client) {
         this.client = client;
     }
-    
+
     public static Map<Integer, Reservation> getReservations() {
         return reservations;
     }
 
-    public static void setReservations( Map<Integer, Reservation>  newValue) {
+    public static void setReservations(Map<Integer, Reservation> newValue) {
         // Add validation logic here if needed
-    	reservations = newValue;
+        reservations = newValue;
     }
 
-
 }
-

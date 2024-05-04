@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.util.EventObject;
 import java.awt.event.ActionEvent;
 
-import Model.Chambre;
 import Model.EtatChambres;
 import Model.TypeChambre;
 
@@ -25,9 +24,6 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableModel;
-
-
 import Controller.CtrlChambre;
 
 import javax.swing.ListSelectionModel;
@@ -41,20 +37,17 @@ public class JChambre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	
 	static JComboBox<TypeChambre> typeChambre = new JComboBox<TypeChambre>();
 	static JComboBox<EtatChambres> etatChambre = new JComboBox<EtatChambres>();
-	
+
 	static int row = 1;
 	static int selectedRow;
 
 	static JTable table = new JTable();
 
-
-
 	static DefaultTableModel model;
 
-	//static JChambre frame = new JChambre();
+	// static JChambre frame = new JChambre();
 	static JTextField numChambre;
 
 	/**
@@ -78,7 +71,7 @@ public class JChambre extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("serial")
+	@SuppressWarnings({ "serial", "rawtypes", "unchecked" })
 	public JChambre() {
 
 		model = new DefaultTableModel(new Object[][] {}, new String[] { "Num", "Type", "Etat" });
@@ -110,7 +103,7 @@ public class JChambre extends JFrame {
 		lblTypechambre.setFont(new Font("Arial", Font.BOLD, 14));
 		lblTypechambre.setBounds(10, 81, 131, 30);
 		panel.add(lblTypechambre);
-		
+
 		JLabel lblEtatchambre = new JLabel("Etat-CHAMBRE");
 		lblEtatchambre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEtatchambre.setFont(new Font("Arial", Font.BOLD, 14));
@@ -125,31 +118,29 @@ public class JChambre extends JFrame {
 		JButton btnAddRoom = new JButton("AJOUTER");
 		btnAddRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				  CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table, this);
+				CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table, this);
 			}
 		});
-			  
-				
-  
+
 		btnAddRoom.setBounds(21, 23, 108, 23);
 		panel_1.add(btnAddRoom);
 
 		JButton btnModifRoom = new JButton("MODIFIER");
-		
-		
-		CtrlChambre.actionModifRoom(btnModifRoom, table, model, typeChambre, etatChambre);	
-		
+
+		CtrlChambre.actionModifRoom(btnModifRoom, table, model, typeChambre, etatChambre);
+
 		btnModifRoom.setBounds(21, 56, 105, 23);
 		panel_1.add(btnModifRoom);
 
 		JButton btnSupprimer = new JButton("SUPPRIMER");
-	
-				CtrlChambre.actionSupprimeRoom(btnSupprimer, table, model);
-	
+
+		CtrlChambre.actionSupprimeRoom(btnSupprimer, table, model);
+
 		btnSupprimer.setBounds(21, 90, 108, 23);
 		panel_1.add(btnSupprimer);
-		
+
 		typeChambre.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings({})
 			@Override
 			public void mousePressed(MouseEvent e) {
 				typeChambre.setModel(new DefaultComboBoxModel(TypeChambre.values()));
@@ -157,6 +148,7 @@ public class JChambre extends JFrame {
 		});
 
 		etatChambre.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings({})
 			@Override
 			public void mousePressed(MouseEvent e) {
 				etatChambre.setModel(new DefaultComboBoxModel(EtatChambres.values()));
@@ -167,8 +159,7 @@ public class JChambre extends JFrame {
 		typeChambre.setBounds(10, 108, 192, 30);
 		panel.add(typeChambre);
 
-		numChambre = 
-				new JTextField();
+		numChambre = new JTextField();
 		numChambre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -180,8 +171,7 @@ public class JChambre extends JFrame {
 		numChambre.setBounds(10, 40, 192, 30);
 		panel.add(numChambre);
 		numChambre.setColumns(10);
-		
-		
+
 		etatChambre.setModel(new DefaultComboBoxModel(EtatChambres.values()));
 		etatChambre.setBackground(Color.WHITE);
 		etatChambre.setBounds(10, 174, 192, 30);
@@ -197,9 +187,9 @@ public class JChambre extends JFrame {
 		panel_2.setBounds(298, 51, 458, 418);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-      
-		 CtrlChambre.actionSelectRoom(table, model, typeChambre, etatChambre, numChambre);
-		
+
+		CtrlChambre.actionSelectRoom(table, model, typeChambre, etatChambre, numChambre);
+
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// Création d'un JTable
@@ -207,14 +197,12 @@ public class JChambre extends JFrame {
 
 		table.setBounds(10, 11, 438, 396);
 		panel_2.add(table);
-		
 
 		JButton btnRetour = new JButton("RETOUR");
 		btnRetour.setBounds(638, 486, 108, 23);
 		contentPane.add(btnRetour);
 		CtrlChambre.actionRetour(btnRetour, this);
-		
-		
+
 		table.setDefaultEditor(Object.class, (TableCellEditor) new DefaultCellEditor(new JTextField()) {
 			@Override
 			public boolean isCellEditable(EventObject e) {
@@ -222,8 +210,6 @@ public class JChambre extends JFrame {
 			}
 		});
 
-
 	}
-
 
 }
