@@ -51,4 +51,17 @@ public class Chambre {
         chambres = newValue;
     }
 
+    public static void initchambres() {
+        for (int i = 1; i <= 10; i++) {
+            chambres.put(i, new Chambre(i, TypeChambre.SIMPLE));
+        }
+
+        for (int i = 11; i <= 20; i++) {
+            chambres.put(i, new Chambre(i, TypeChambre.DOUBLE));
+        }
+
+        for (int i = 21; i <= 30; i++) {
+            chambres.put(i, new Chambre(i, TypeChambre.SUITE));
+        }
+    }
 }

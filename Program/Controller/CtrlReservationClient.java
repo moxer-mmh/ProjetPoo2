@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -162,37 +163,45 @@ public class CtrlReservationClient {
 
 	}
 
-	public static void makeReservation(JButton btnEnregistrer, String startDate, String endDate,
-			JComboBox<TypeChambre> etatChambreC, String nom, String prenom) {
+	public static void makeReservation(JButton btnEnregistrer, JComboBox<String> startdayComboBox, JComboBox<String> startmonthComboBox, JComboBox<String> startyearComboBox, JComboBox<String> enddayComboBox, JComboBox<String> endmonthComboBox, JComboBox<String> endyearComboBox, JComboBox<TypeChambre> etatChambreC, String nom, String prenom) {
 
 		btnEnregistrer.addActionListener(new ActionListener() {
-
+	
 			public void actionPerformed(ActionEvent e) {
 				Client client = new Client(nom, prenom, row);
 				if (Chambre.chambres == null || Chambre.chambres.isEmpty()) {
-					System.out.println("Aucune chambre n'est disponible.");
+					JOptionPane.showMessageDialog(null, "Aucune chambre n'est disponible.", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
-
+	
 					for (Chambre rowList : Chambre.chambres.values()) {
-
 						rowList.getNumero();
 						rowList.getType();
 						rowList.getEtatChambre();
 						++row;
-
 					}
-
+	
 					boolean roomFound = false;
 					for (Map.Entry<Integer, Chambre> entry : Chambre.chambres.entrySet()) {
 						Chambre chambre = entry.getValue();
 						if (chambre.getType() == etatChambreC.getSelectedItem()
 								&& chambre.getEtatChambre() == EtatChambres.LIBRE) {
 							roomFound = true;
-
+	
+							String startDate = (String) startdayComboBox.getSelectedItem() + "/" + (String) startmonthComboBox.getSelectedItem() + "/" + (String) startyearComboBox.getSelectedItem();
+							String endDate = (String) enddayComboBox.getSelectedItem() + "/" + (String) endmonthComboBox.getSelectedItem() + "/" + (String) endyearComboBox.getSelectedItem();
+	
+							try {
+								validateDates(startDate, endDate);
+							} catch (InvalidDateException e1) {
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+	
 							Reservation r = new Reservation(row, chambre, startDate, endDate, client);
 							Reservation.reservations.put(row, r);
 							Reservation.setReservations(Reservation.reservations);
-
+	
 							chambre.setEtatChambre(EtatChambres.EN_ATTENTE);
 							System.out.println(row + "Réservation effectuée avec succès !");
 							++row;
@@ -200,16 +209,17 @@ public class CtrlReservationClient {
 						}
 					}
 					if (!roomFound) {
-						System.out.println("Aucune chambre de ce type n'est disponible.");
-
+						JOptionPane.showMessageDialog(null, "Aucune chambre de ce type n'est disponible.", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
-
+	
 		});
+	
 	}
 
-	public static void actionNouvelleReserv(JButton btnReservation, JPanel pReservation, JPanel panel_1) {
+	public static void actionNouvelleReserv(JButton btnReservation, JPanel pReservation, JPanel panel_1,JPanel pMesReserv) {
 
 		btnReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -217,10 +227,57 @@ public class CtrlReservationClient {
 				Insets insets = pReservation.getInsets(); // Get insets for border padding
 				pReservation.setBounds(300 + insets.left, 20 + insets.top, 800, 700); //
 				panel_1.setVisible(false);
-
+				pMesReserv.setVisible(false);
 			}
 		});
 
 	}
 
+	public static void validateDates(String startDate, String endDate) throws InvalidDateException{
+		// Split the dates into components
+		String[] startComponents = startDate.split("/");
+		String[] endComponents = endDate.split("/");
+	
+		// Check if the components are valid
+		if (startComponents.length != 3 || endComponents.length != 3) {
+			throw new InvalidDateException("Les dates doivent être au format JJ/MM/AAAA.");
+		}
+	
+		// Parse the components into integers
+		int startDay, startMonth, startYear, endDay, endMonth, endYear;
+		try {
+			startDay = (int) Integer.parseInt(startComponents[0]);
+			startMonth = (int) Integer.parseInt(startComponents[1]);
+			startYear = (int) Integer.parseInt(startComponents[2]);
+			endDay = (int) Integer.parseInt(endComponents[0]);
+			endMonth = (int) Integer.parseInt(endComponents[1]);
+			endYear = (int) Integer.parseInt(endComponents[2]);
+		} catch (NumberFormatException e) {
+			throw new InvalidDateException("Les dates doivent être des nombres entiers.");
+		}
+	
+		// Check if the month and day values are valid
+		if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
+			throw new InvalidDateException("Les mois doivent être compris entre 1 et 12.");
+		}
+	
+		int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		if (startDay < 1 || startDay > daysInMonth[startMonth - 1] + ((startMonth == 2 && isLeapYear(startYear)) ? 1 : 0)) {
+			throw new InvalidDateException("Les jours doivent être compris entre 1 et le nombre de jours dans le mois.");
+		}
+		if (endDay < 1 || endDay > daysInMonth[endMonth - 1] + ((endMonth == 2 && isLeapYear(endYear)) ? 1 : 0)) {
+			throw new InvalidDateException("Les jours doivent être compris entre 1 et le nombre de jours dans le mois.");
+		}
+
+		// Check if the start date is before the end date
+		if (startYear > endYear || (startYear == endYear && (startMonth > endMonth || ((startMonth == endMonth) && (startDay > endDay))))) {
+			throw new InvalidDateException("La date de début doit être antérieure à la date de fin.");
+		}
+	}
+
+	private static boolean isLeapYear(int year) {
+		return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+	}
 }
+
+

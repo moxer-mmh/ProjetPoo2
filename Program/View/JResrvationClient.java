@@ -7,7 +7,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import Controller.CtrlReservationClient;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -28,10 +27,7 @@ public class JResrvationClient extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static JTextField prenomC;
-	private JTextField dateFin;
 	private static JTextField nomC;
-	private JTextField dateDebut;
-	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -101,7 +97,7 @@ public class JResrvationClient extends JFrame {
 		pReservation.setLayout(null);
 
 		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setBounds(281, 11, 250, 120);
+		panel_1_1.setBounds(281, 11, 250, 85);
 		panel_1_1.setLayout(null);
 		pReservation.add(panel_1_1);
 
@@ -111,17 +107,34 @@ public class JResrvationClient extends JFrame {
 		prenomC.setBounds(10, 20, 230, 25);
 		panel_1_1.add(prenomC);
 
-		dateFin = new JTextField();
-		dateFin.setColumns(10);
-		dateFin.setBounds(10, 49, 230, 25);
-		panel_1_1.add(dateFin);
+		/*
+		 * dateFin = new JTextField();
+		 * dateFin.setColumns(10);
+		 * dateFin.setBounds(10, 49, 230, 25);
+		 * panel_1_1.add(dateFin);
+		 */
 
-		etatChambreC.setModel(new DefaultComboBoxModel(TypeChambre.values()));
-		etatChambreC.setBounds(10, 85, 230, 25);
-		panel_1_1.add(etatChambreC);
+		JComboBox<String> enddayComboBox = new JComboBox<String>();
+		enddayComboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "01", "02", "03", "04", "05", "06",
+				"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+				"24", "25", "26", "27", "28", "29", "30", "31" }));
+		enddayComboBox.setBounds(10, 49, 70, 25);
+		panel_1_1.add(enddayComboBox);
+
+		JComboBox<String> endmonthComboBox = new JComboBox<String>();
+		endmonthComboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+		endmonthComboBox.setBounds(90, 49, 70, 25);
+		panel_1_1.add(endmonthComboBox);
+
+		JComboBox<String> endyearComboBox = new JComboBox<String>();
+		endyearComboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+		endyearComboBox.setBounds(170, 49, 70, 25);
+		panel_1_1.add(endyearComboBox);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(23, 11, 255, 120);
+		panel_3.setBounds(23, 11, 255, 85);
 		panel_3.setLayout(null);
 		pReservation.add(panel_3);
 
@@ -131,21 +144,45 @@ public class JResrvationClient extends JFrame {
 		nomC.setBounds(10, 20, 230, 25);
 		panel_3.add(nomC);
 
-		dateDebut = new JTextField();
-		dateDebut.setColumns(10);
-		dateDebut.setBounds(10, 51, 230, 25);
-		panel_3.add(dateDebut);
+		JComboBox<String> startdayComboBox = new JComboBox<String>();
+		startdayComboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "01", "02", "03", "04", "05", "06",
+				"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+				"24", "25", "26", "27", "28", "29", "30", "31" }));
+		startdayComboBox.setBounds(10, 51, 70, 25);
+		panel_3.add(startdayComboBox);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(10, 86, 230, 25);
-		panel_3.add(textField_4);
+		JComboBox<String> startmonthComboBox = new JComboBox<String>();
+		startmonthComboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+		startmonthComboBox.setBounds(90, 51, 70, 25);
+		panel_3.add(startmonthComboBox);
+
+		JComboBox<String> startyearComboBox = new JComboBox<String>();
+		startyearComboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+		startyearComboBox.setBounds(170, 51, 70, 25);
+		panel_3.add(startyearComboBox);
+
+		/*
+		 * textField_4 = new JTextField();
+		 * textField_4.setColumns(10);
+		 * textField_4.setBounds(10, 86, 230, 25);
+		 * panel_3.add(textField_4);
+		 */
+
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(90, 80, 500, 50);
+		panel_4.setLayout(null);
+		pReservation.add(panel_4);
+
+		etatChambreC.setModel(new DefaultComboBoxModel(TypeChambre.values()));
+		etatChambreC.setBounds(120, 20, 150, 25);
+		panel_4.add(etatChambreC);
 
 		JButton btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBounds(234, 142, 101, 23);
 
-		CtrlReservationClient.makeReservation(btnEnregistrer, dateDebut.getText(), dateFin.getText(), etatChambreC,
-				nomC.getText(), prenomC.getText());
+		CtrlReservationClient.makeReservation(btnEnregistrer, startdayComboBox, startmonthComboBox, startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, etatChambreC, nomC.getText(), prenomC.getText());
 
 		pReservation.add(btnEnregistrer);
 
@@ -197,7 +234,7 @@ public class JResrvationClient extends JFrame {
 				prenom,
 				model, tableClient, selectedReservationId, selectedReservationEtat);
 
-		CtrlReservationClient.actionNouvelleReserv(btnReservation, pReservation, panel_1);
+		CtrlReservationClient.actionNouvelleReserv(btnReservation, pReservation, panel_1, pMesReserv);
 
 		reservClient.setFont(new Font("Arial", Font.BOLD, 14));
 		reservClient.setBounds(20, 101, 197, 42);

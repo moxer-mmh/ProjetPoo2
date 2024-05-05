@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.CtrlMain;
+import Model.Chambre;
 
 import javax.swing.JButton;
 import java.awt.Font;
@@ -21,6 +22,7 @@ public class JMain extends JFrame {
 	static JMain frame = new JMain();
 
 	public static void main(String[] args) {
+		Chambre.initchambres();
 		frame.setVisible(true);
 	}
 

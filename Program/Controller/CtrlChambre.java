@@ -27,26 +27,26 @@ public class CtrlChambre {
 	public static void actionAddRoom(JButton btnAddRoom, JComboBox<TypeChambre> typeChambre, JTextField numChambre,
 			DefaultTableModel model, JTable tableChambre, ActionListener actionListener) {
 
-		if (Chambre.chambres == null || !Chambre.chambres.containsKey(roomNumber)) {
+			if (Chambre.chambres == null || !Chambre.chambres.containsKey(roomNumber)) {
 
-			Chambre.chambres.put(roomNumber, new Chambre(roomNumber, (TypeChambre) typeChambre.getSelectedItem()));
-			System.out.println("Chambre ajoutée avec succès !");
+				Chambre.chambres.put(roomNumber, new Chambre(roomNumber, (TypeChambre) typeChambre.getSelectedItem()));
+				System.out.println("Chambre ajoutée avec succès !");
 
-			numChambre.setText(String.valueOf(roomNumber));
+				numChambre.setText(String.valueOf(roomNumber));
 
-			Object[] data = { roomNumber, typeChambre.getSelectedItem(), EtatChambres.LIBRE };
+				Object[] data = { roomNumber, typeChambre.getSelectedItem(), EtatChambres.LIBRE };
 
-			model.addRow(data);
-			tableChambre.setModel(model);
-			roomNumber = roomNumber + 1;
-			numChambre.setText(String.valueOf(roomNumber));
+				model.addRow(data);
+				tableChambre.setModel(model);
+				roomNumber = roomNumber + 1;
+				numChambre.setText(String.valueOf(roomNumber));
 
-		} else {
+			} else {
 
-			JOptionPane.showMessageDialog((Component) actionListener,
-					"La chambre spécifiée existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog((Component) actionListener,
+						"La chambre spécifiée existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
 
-		}
+			}
 	}
 
 	public static void listeRoom(DefaultTableModel model, JTable table) {
@@ -89,18 +89,18 @@ public class CtrlChambre {
 
 	}
 
-	public static void actionSupprimeRoom(JButton btnSupprimer, JTable table, DefaultTableModel model) {
+	public static void actionSupprimeRoom(JButton btnSupprimer, JTable table, DefaultTableModel model)  {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				table.setModel(model);
-				selectedRow = table.getSelectedRow();
+				int selectedRow = table.getSelectedRow();
 				if (selectedRow != -1) {
-					model.removeRow(selectedRow);
-					table.setModel(model);
-				} else {
-					// Or display an error message
-				}
+					
+						model.removeRow(selectedRow);
+						table.setModel(model);
+					}else {
 
+				}
 			}
 		});
 	}
