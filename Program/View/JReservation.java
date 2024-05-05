@@ -56,12 +56,9 @@ public class JReservation extends JFrame {
         CtrlReservation.actionSelectReservation(model, table);
 
         JButton retour = new JButton("RETOUR");
-        CtrlReservation.actionRetour(retour, this);
-
-        int buttonWidth = 100;
-        int buttonHeight = 30;
-        retour.setBounds(670, 520, buttonWidth, buttonHeight);
+        retour.setBounds(670, 520, 100, 30);
         contentPane.add(retour);
+        CtrlReservation.actionRetour(retour, this);
 
         JButton btnAcceptReserv = new JButton("ACCEPTER");
         CtrlReservation.actionAcceptReserv(btnAcceptReserv, model, table);

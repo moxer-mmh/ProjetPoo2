@@ -29,8 +29,6 @@ import Controller.CtrlChambre;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class JChambre extends JFrame {
 
@@ -160,13 +158,6 @@ public class JChambre extends JFrame {
 		panel.add(typeChambre);
 
 		numChambre = new JTextField();
-		numChambre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				row = Integer.parseInt(numChambre.getText());
-			}
-
-		});
 
 		numChambre.setBounds(10, 40, 192, 30);
 		panel.add(numChambre);

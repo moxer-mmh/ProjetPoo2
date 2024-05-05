@@ -25,6 +25,10 @@ public class CtrlReservationClient {
 
 	public static int row;
 	private static int selectedReservationId = -1;
+	private static final int Todayday = 5;
+	private static final int Todaymonth = 5;
+	private static final int Todayyear = 2024;
+
 
 	public static void action(JButton btnReservation, JPanel pReservation) {
 
@@ -88,39 +92,41 @@ public class CtrlReservationClient {
 	}
 
 	public static void actionAnnulResrv(JButton btnAnnuler, String nom, String prenom,
-			DefaultTableModel model, JTable tableResrvClient, EtatReservation selectedReservationEtat) {
+        DefaultTableModel model, JTable tableResrvClient, EtatReservation selectedReservationEtat) {
 
-		btnAnnuler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+    btnAnnuler.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
 
-				for (Map.Entry<Integer, Reservation> entry : Reservation.getReservations().entrySet()) {
+            for (Map.Entry<Integer, Reservation> entry : Reservation.getReservations().entrySet()) {
 
-					Client client = entry.getValue().getClient();
-					selectedReservationId = (int) tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0);
+                Client client = entry.getValue().getClient();
+                selectedReservationId = (int) tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0);
 
-					// Vérifier si la réservation appartient au client et correspond à l'ID
-					// sélectionné
-					if (client.getNom().equals(nom) && client.getPrenom().equals(prenom))
-					// && entry.getValue().getClient().getId() == selectedReservationId)
-					{
+                // Vérifier si la réservation appartient au client et correspond à l'ID sélectionné
+                if (client.getNom().equals(nom) && client.getPrenom().equals(prenom)) {
 
-						Reservation reservation = Reservation.reservations.get(selectedReservationId);
-						reservation.setEtat(EtatReservation.ANNULEE);
-						entry.getValue().getChambre().setEtatChambre(EtatChambres.LIBRE);
-						System.out.println("Réservation " + selectedReservationId + " annulée avec succès.");
+                    Reservation reservation = Reservation.reservations.get(selectedReservationId);
+					String[] Datedebut = tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 3).toString().split("/");
+                    // Vérifier si la date de début de la réservation est dans le futur
+                    if (reservation.getEtat() == EtatReservation.EN_ATTENTE &&  (Integer.parseInt(Datedebut[2]) > Todayyear || (Integer.parseInt(Datedebut[2]) == Todayyear && (Integer.parseInt(Datedebut[1]) > Todaymonth || ((Integer.parseInt(Datedebut[1]) == Todaymonth) && (Integer.parseInt(Datedebut[0]) > Todayday)))))){
+                        reservation.setEtat(EtatReservation.ANNULEE);
+                        entry.getValue().getChambre().setEtatChambre(EtatChambres.LIBRE);
+                        System.out.println("Réservation " + selectedReservationId + " annulée avec succès.");
 
-						// Mettre à jour la ligne correspondante dans la JTable
-						int row = getRowFromReservationId(selectedReservationId, nom, prenom, model);
-						if (row != -1) {
-							model.setValueAt(EtatReservation.ANNULEE, row, 5);
-						}
-						break;
-					}
-				}
-			}
-		});
-
-	}
+                        // Mettre à jour la ligne correspondante dans la JTable
+                        int row = getRowFromReservationId(selectedReservationId, nom, prenom, model);
+                        if (row != -1) {
+                            model.setValueAt(EtatReservation.ANNULEE, row, 5);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Vous ne pouvez pas annuler une réservation en cours.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                }
+            }
+        }
+    });
+}
 
 	private static int getRowFromReservationId(int reservationId, String nomClient, String prenomClient,
 			DefaultTableModel model) {
@@ -272,6 +278,11 @@ public class CtrlReservationClient {
 		// Check if the start date is before the end date
 		if (startYear > endYear || (startYear == endYear && (startMonth > endMonth || ((startMonth == endMonth) && (startDay > endDay))))) {
 			throw new InvalidDateException("La date de début doit être antérieure à la date de fin.");
+		}
+
+		// Check if the start date is before the Today date
+		if (startYear < 2024 || (startYear == 2024 && (startMonth < 5 || ((startMonth == 5) && (startDay < 5))))) {
+			throw new InvalidDateException("La date de début doit être postérieure à la date 05/05/2024.");
 		}
 	}
 

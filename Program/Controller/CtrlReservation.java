@@ -16,7 +16,7 @@ import Model.Client;
 import Model.EtatChambres;
 import Model.EtatReservation;
 import Model.Reservation;
-import View.JMain;
+import View.JAdmin;
 
 public class CtrlReservation {
 	
@@ -131,7 +131,7 @@ private static EtatReservation selectedReservationEtat;
 			
 			retour.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JMain windowToBeClosed = new JMain();
+					JAdmin windowToBeClosed = new JAdmin();
 					windowToBeClosed.setVisible(true);
 				   frame.dispose();
 					
