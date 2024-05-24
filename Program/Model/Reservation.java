@@ -14,6 +14,8 @@ public class Reservation {
 
     public static Map<Integer, Reservation> reservations = new TreeMap<>();
 
+    public static int row;
+
     public Reservation(int id, Chambre chambre, String dateDebut, String dateFin, Client client2) {
         this.id = id;
         this.chambre = chambre;
@@ -21,6 +23,7 @@ public class Reservation {
         this.dateFin = dateFin;
         this.client = client2;
         this.etat = EtatReservation.EN_ATTENTE;
+
     }
 
     /// Getters & Setters

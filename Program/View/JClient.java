@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import Model.Client;
 
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 public class JClient extends JFrame {
 
@@ -52,39 +55,69 @@ public class JClient extends JFrame {
 	 */
 	public JClient() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 676, 511);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		JLabel background = new JLabel();
+		background.setBounds(400, 0, 386, 563);
+		contentPane.add(background);
+		background.setIcon(new ImageIcon(getClass().getResource("hotel1.png")));
+
+		JLabel textt = new JLabel("Entre votre nom et prenom");
+		textt.setFont(new Font("Tahoma", Font.BOLD, 18));
+		textt.setForeground(Color.white);
+		textt.setBounds(80, 120, 360, 57);
+		background.add(textt);
+
+		JLabel background2 = new JLabel();
+		background2.setBounds(0, 0, 401, 563);
+		background2.setOpaque(true);
+		background2.setBackground(Color.white);
+		contentPane.add(background2);
+
+		JLabel logo = new JLabel();
+		logo.setIcon(new ImageIcon(getClass().getResource("logo.png")));
+		logo.setBounds(70, 136, 236, 256);
+		background2.add(logo);
+
 		JPanel panel = new JPanel();
-		panel.setBounds(156, 106, 321, 130);
-		contentPane.add(panel);
+		panel.setOpaque(false);
+		panel.setBounds(50, 200, 300, 148);
 		panel.setLayout(null);
 
 		nomClient = new JTextField();
-		nomClient.setBounds(77, 11, 186, 37);
+		nomClient.setBackground(new Color(0, 21, 43));
+		nomClient.setForeground(Color.white);
+		nomClient.setBounds(129, 10, 161, 34);
 		panel.add(nomClient);
 		nomClient.setColumns(10);
 
 		prenomClient = new JTextField();
+		prenomClient.setBackground(new Color(0, 21, 43));
+		prenomClient.setForeground(Color.white);
 		prenomClient.setColumns(10);
-		prenomClient.setBounds(77, 59, 186, 37);
+		prenomClient.setBounds(129, 54, 161, 34);
 		panel.add(prenomClient);
 
 		JLabel lblNewLabel = new JLabel("Nom");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setBounds(10, 11, 43, 37);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel.setForeground(Color.white);
+		lblNewLabel.setBounds(0, 13, 98, 27);
 		panel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		JLabel lblPrenom = new JLabel("Prenom");
-		lblPrenom.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPrenom.setBounds(10, 59, 57, 37);
+		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblPrenom.setForeground(Color.white);
+		lblPrenom.setBounds(0, 50, 98, 35);
 		panel.add(lblPrenom);
+		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		JButton btnNewButton = new JButton("Entrer");
+		JButton btnNewButton = Design.createButton("Entrer", 120, 98, 80, 44);
 		btnNewButton.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -98,10 +131,8 @@ public class JClient extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(240, 247, 81, 37);
-		contentPane.add(btnNewButton);
 
-		btnNewButton_1 = new JButton("Retour");
+		btnNewButton_1 = Design.createButton("Retour", 220, 98, 80, 44);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -111,8 +142,11 @@ public class JClient extends JFrame {
 
 			}
 		});
-		btnNewButton_1.setBounds(319, 247, 89, 37);
-		contentPane.add(btnNewButton_1);
+
+		panel.add(btnNewButton);
+		panel.add(btnNewButton_1);
+
+		background.add(panel);
 	}
 
 	public static void addClient() {

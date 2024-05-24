@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.EventQueue;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +12,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Controller.CtrlAuthentification;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Dimension;
 
 public class JAuthentification extends JFrame {
 
@@ -45,54 +50,82 @@ public class JAuthentification extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 676, 511);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
+		contentPane.setMinimumSize(new Dimension(32767, 32767));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(164, 71, 121, 268);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JLabel background = new JLabel();
+		background.setIcon(new ImageIcon(getClass().getResource("hotel1.png")));
+		background.setBounds(400, 0, 386, 563);
+		contentPane.add(background);
 
-		JLabel lblNewLabel = new JLabel("Utilisateur");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(10, 66, 101, 35);
-		panel.add(lblNewLabel);
+		JLabel textt = new JLabel("Entre votre username et mot de passe");
+		textt.setFont(new Font("Tahoma", Font.BOLD, 18));
+		textt.setForeground(Color.white);
+		textt.setBounds(20, 120, 360, 57);
+		background.add(textt);
 
-		JLabel lblMotPasse = new JLabel("Mot Passe");
-		lblMotPasse.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMotPasse.setBounds(10, 112, 101, 35);
-		panel.add(lblMotPasse);
+
+		JLabel background2 = new JLabel();
+		background2.setBounds(0, 0, 401, 563);
+		background2.setOpaque(true);
+		background2.setBackground(Color.white);
+		contentPane.add(background2);
+
+		JLabel logo = new JLabel();
+		logo.setIcon(new ImageIcon(getClass().getResource("logo.png")));
+		logo.setBounds(70, 136, 236, 256);
+		background2.add(logo);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
+		panel_1.setBounds(50, 200, 300, 148);
 		panel_1.setLayout(null);
-		panel_1.setBounds(295, 71, 181, 268);
-		contentPane.add(panel_1);
+		background.add(panel_1);
 
-		JButton btnRetour = new JButton("Retour");
+		JButton btnRetour = Design.createButton("Retour", 220, 98, 80, 44);
 
-		btnRetour.setBounds(79, 200, 78, 44);
 		panel_1.add(btnRetour);
 		CtrlAuthentification.actionRetour(btnRetour, this);
 
 		utilisateur = new JTextField();
-		utilisateur.setBounds(10, 65, 161, 34);
+		utilisateur.setCaretColor(Color.white);
+		utilisateur.setForeground(Color.white);
+		utilisateur.setBackground(new Color(0, 21, 43));
+		utilisateur.setBounds(129, 10, 161, 34);
 		panel_1.add(utilisateur);
 		utilisateur.setColumns(10);
 
 		pwd = new JPasswordField();
-		pwd.setBounds(10, 110, 161, 34);
+		pwd.setCaretColor(Color.white);
+		pwd.setForeground(Color.white);
+		pwd.setBackground(new Color(0, 21, 43));
+		pwd.setBounds(129, 54, 161, 34);
 		panel_1.add(pwd);
 
-		JButton btnLogin = new JButton("Login");
+		JButton btnLogin = Design.createButton("Login", 120, 98, 80, 44);
 
 		CtrlAuthentification.actionLogin(btnLogin, pwd, utilisateur, this);
-
-		btnLogin.setBounds(10, 200, 69, 44);
 		panel_1.add(btnLogin);
+
+		JLabel lblNewLabel = new JLabel("Utilisateur");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel.setForeground(Color.white);
+		lblNewLabel.setBounds(0, 13, 98, 27);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		JLabel lblMotPasse = new JLabel("Mot Passe");
+		lblMotPasse.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblMotPasse.setForeground(Color.white);
+		lblMotPasse.setBounds(0, 50, 98, 35);
+		panel_1.add(lblMotPasse);
+		lblMotPasse.setHorizontalAlignment(SwingConstants.RIGHT);
+
 
 	}
 }

@@ -129,7 +129,8 @@ public class JResrvationClient extends JFrame {
 
 		JComboBox<String> endyearComboBox = new JComboBox<String>();
 		endyearComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034",
+						"2035", "2036", "2037", "2038", "2039", "2040" }));
 		endyearComboBox.setBounds(170, 49, 70, 25);
 		panel_1_1.add(endyearComboBox);
 
@@ -159,7 +160,8 @@ public class JResrvationClient extends JFrame {
 
 		JComboBox<String> startyearComboBox = new JComboBox<String>();
 		startyearComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034",
+						"2035", "2036", "2037", "2038", "2039", "2040" }));
 		startyearComboBox.setBounds(170, 51, 70, 25);
 		panel_3.add(startyearComboBox);
 
@@ -182,7 +184,9 @@ public class JResrvationClient extends JFrame {
 		JButton btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBounds(234, 142, 101, 23);
 
-		CtrlReservationClient.makeReservation(btnEnregistrer, startdayComboBox, startmonthComboBox, startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, etatChambreC, nomC.getText(), prenomC.getText());
+		CtrlReservationClient.actionMakeReservation(btnEnregistrer, startdayComboBox, startmonthComboBox,
+				startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, etatChambreC, nomC.getText(),
+				prenomC.getText());
 
 		pReservation.add(btnEnregistrer);
 
@@ -230,11 +234,10 @@ public class JResrvationClient extends JFrame {
 
 		JButton reservClient = new JButton("Mes RESERVATION");
 
-		CtrlReservationClient.actionReservClient(reservClient, pMesReserv, pReservation, contentPane, panel_1, nom,
-				prenom,
-				model, tableClient, selectedReservationId, selectedReservationEtat);
+		CtrlReservationClient.actionMesReservations(reservClient, pMesReserv, pReservation, contentPane, panel_1, nom,
+				prenom, model, tableClient, selectedReservationId, selectedReservationEtat);
 
-		CtrlReservationClient.actionNouvelleReserv(btnReservation, pReservation, panel_1, pMesReserv);
+		CtrlReservationClient.actionVisiblePanelReserv(btnReservation, pReservation, panel_1, pMesReserv);
 
 		reservClient.setFont(new Font("Arial", Font.BOLD, 14));
 		reservClient.setBounds(20, 101, 197, 42);

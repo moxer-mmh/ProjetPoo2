@@ -74,7 +74,7 @@ public class JChambre extends JFrame {
 
 		model = new DefaultTableModel(new Object[][] {}, new String[] { "Num", "Type", "Etat" });
 
-		CtrlChambre.listeRoom(model, table);
+		CtrlChambre.actionListeRoom(model, table);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 798, 594);
@@ -125,14 +125,14 @@ public class JChambre extends JFrame {
 
 		JButton btnModifRoom = new JButton("MODIFIER");
 
-		CtrlChambre.actionModifRoom(btnModifRoom, table, model, typeChambre, etatChambre);
+		CtrlChambre.actionModifyRoom(btnModifRoom, table, model, typeChambre, etatChambre);
 
 		btnModifRoom.setBounds(21, 56, 105, 23);
 		panel_1.add(btnModifRoom);
 
 		JButton btnSupprimer = new JButton("SUPPRIMER");
 
-		CtrlChambre.actionSupprimeRoom(btnSupprimer, table, model);
+		CtrlChambre.actionDeleteRoom(btnSupprimer, table, model);
 
 		btnSupprimer.setBounds(21, 90, 108, 23);
 		panel_1.add(btnSupprimer);

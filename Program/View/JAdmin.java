@@ -1,95 +1,79 @@
 package View;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Controller.CtrlAdmin;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.Color;
 
 public class JAdmin extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
+    static JAdmin frame = new JAdmin();
 
-	static JAdmin frame = new JAdmin();
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+    public JAdmin() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 600);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        JLabel backgroundLabel = new JLabel();
+        backgroundLabel.setBounds(22, 0, 800, 600);
+        contentPane.add(backgroundLabel);
 
-	/**
-	 * Create the frame.
-	 */
-	public JAdmin() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 798, 594);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        Color sideColor = new Color(44, 62, 80);
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+        JButton clientButton = Design.createButton("CLIENTS", 10, 155, 180, 42);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(64, 128, 128));
-		panel.setBounds(23, 51, 162, 478);
-		contentPane.add(panel);
-		panel.setLayout(null);
+        JButton reservationButton = Design.createButton("RESERVATIONS", 10, 87, 180, 42);
+        CtrlAdmin.actionReservation(reservationButton, this);
 
-		JButton Client = new JButton("CLIENTS");
-		Client.setFont(new Font("Arial", Font.BOLD, 14));
+        JButton chambreButton = Design.createButton("CHAMBRES", 10, 21, 180, 42);
+        CtrlAdmin.actionChambre(chambreButton, this);
 
-		Client.setBounds(10, 155, 142, 42);
-		panel.add(Client);
+        JButton fermerButton = Design.createButton("RETOUR", 10, 317, 180, 42);
+        CtrlAdmin.actionRetour(fermerButton, this);
 
-		JButton reservation = new JButton("RESERVATIONS");
-		CtrlAdmin.actionReservation(reservation, this);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(new Color(236, 240, 241));
+        mainPanel.setBounds(200, 0, 600, 600); // Redimensionnement du mainPanel pour s'adapter à la largeur et à la
+                                               // hauteur de la fenêtre
+        contentPane.add(mainPanel);
 
-		reservation.setFont(new Font("Arial", Font.BOLD, 14));
-		reservation.setBounds(10, 87, 142, 42);
-		panel.add(reservation);
+        JLabel icone = new JLabel("");
+        icone.setIcon(new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Images\\AdminIMG.jpg"));
+        icone.setBounds(0, 0, 600, 600); // Redimensionnement de l'icône pour s'adapter à la largeur et à la hauteur du
+                                         // mainPanel
+        mainPanel.add(icone);
 
-		JButton chambre = new JButton("CHAMBRES");
-
-		CtrlAdmin.actionChambre(chambre, this);
-
-		chambre.setFont(new Font("Arial", Font.BOLD, 14));
-		chambre.setBounds(10, 21, 142, 42);
-		panel.add(chambre);
-
-		JButton fermer = new JButton("RETOUR");
-
-		CtrlAdmin.actionFermer(fermer, this);
-
-		fermer.setFont(new Font("Arial", Font.BOLD, 14));
-		fermer.setBounds(10, 317, 142, 42);
-		panel.add(fermer);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(190, 51, 582, 478);
-		contentPane.add(panel_1);
-
-		JLabel icone = new JLabel("");
-		icone.setIcon(new ImageIcon("C:\\Users\\Administrateur\\Downloads\\hotel1.jpg"));
-		panel_1.add(icone);
-	}
+        JPanel sidePanel = new JPanel();
+        contentPane.add(sidePanel);
+        sidePanel.setBackground(sideColor);
+        sidePanel.setBounds(-22, 0, 222, 600);
+        sidePanel.setLayout(null);
+        sidePanel.add(clientButton);
+        sidePanel.add(reservationButton);
+        sidePanel.add(chambreButton);
+        sidePanel.add(fermerButton);
+    }
 }

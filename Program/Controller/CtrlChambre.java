@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import Model.Admin;
 import Model.Chambre;
 import Model.EtatChambres;
 import Model.TypeChambre;
@@ -24,29 +25,28 @@ public class CtrlChambre {
 	static int selectedRow;
 
 	public static void actionAddRoom(JButton btnAddRoom, JComboBox<TypeChambre> typeChambre, JTextField numChambre,
-        DefaultTableModel model, JTable tableChambre, ActionListener actionListener) {
+			DefaultTableModel model, JTable tableChambre, ActionListener actionListener) {
 
-    try {
-        int roomNumber = Integer.parseInt(numChambre.getText().trim());
+		btnAddRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        if (!Chambre.chambres.containsKey(roomNumber)) {
-            Chambre.chambres.put(roomNumber, new Chambre(roomNumber, (TypeChambre) typeChambre.getSelectedItem()));
-            System.out.println("Chambre ajoutée avec succès !");
+				try {
+					int roomNumber = Integer.parseInt(numChambre.getText().trim());
 
-            Object[] data = { roomNumber, typeChambre.getSelectedItem(), EtatChambres.LIBRE };
-            model.addRow(data);
-            tableChambre.setModel(model);
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "La chambre spécifiée existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null,
-                "Veuillez entrer un numéro de chambre valide", "Erreur", JOptionPane.ERROR_MESSAGE);
-    }
-}
+					Admin.addRoom((TypeChambre) typeChambre.getSelectedItem(), roomNumber, model);
 
-	public static void listeRoom(DefaultTableModel model, JTable table) {
+					tableChambre.setModel(model);
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,
+							"Veuillez entrer un numéro de chambre valide", ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+	}
+
+	public static void actionListeRoom(DefaultTableModel model, JTable table) {
 		for (Chambre rowList : Chambre.chambres.values()) {
 			Object[] data = { rowList.getNumero(), rowList.getType(), rowList.getEtatChambre() };
 			System.out.println(rowList.getNumero());
@@ -58,56 +58,26 @@ public class CtrlChambre {
 
 	}
 
-	public static void actionModifRoom(JButton btnModifRoom, JTable table, DefaultTableModel model,
+	public static void actionModifyRoom(JButton btnModifRoom, JTable table, DefaultTableModel model,
 			JComboBox<TypeChambre> typeChambre, JComboBox<EtatChambres> etatChambre) {
 
 		btnModifRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				selectedRow = table.getSelectedRow();
 
-				Chambre chambre = Chambre.chambres.get(selectedRow + 1);
+				Admin.modifyRoom(selectedRow, model, typeChambre, etatChambre);
 
-				if (chambre != null) {
-					if (chambre.getEtatChambre() == EtatChambres.LIBRE) {
-						chambre.setType((TypeChambre) typeChambre.getSelectedItem());
-						chambre.setEtatChambre((EtatChambres) etatChambre.getSelectedItem());
-
-						table.setModel(model);
-
-						model.setValueAt(typeChambre.getSelectedItem(), selectedRow, 1);
-						model.setValueAt(etatChambre.getSelectedItem(), selectedRow, 2);
-					} else {
-						try {
-							throw new ExeptionChambre(
-									"Impossible de modifier une chambre déjà réservée ou en attente.");
-						} catch (ExeptionChambre e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				}
 			}
 		});
 	}
 
-	public static void actionSupprimeRoom(JButton btnSupprimer, JTable table, DefaultTableModel model) {
+	public static void actionDeleteRoom(JButton btnSupprimer, JTable table, DefaultTableModel model) {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				table.setModel(model);
 				int selectedRow = table.getSelectedRow();
-				if (selectedRow != -1) {
-					Chambre chambre = Chambre.chambres.get(selectedRow + 1);
-					if (chambre.getEtatChambre() == EtatChambres.LIBRE) {
-						model.removeRow(selectedRow);
-						table.setModel(model);
-					} else {
-						try {
-							throw new ExeptionChambre(
-									"Impossible de supprimer une chambre déjà réservée ou en attente.");
-						} catch (ExeptionChambre e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				}
+				Admin.deleteRoom(model, selectedRow);
 			}
 		});
 	}
