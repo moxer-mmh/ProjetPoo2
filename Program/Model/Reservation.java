@@ -3,6 +3,9 @@ package Model;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class Reservation {
 
     private int id;
@@ -13,17 +16,17 @@ public class Reservation {
     private String dateFin;
 
     public static Map<Integer, Reservation> reservations = new TreeMap<>();
-
+    
     public static int row;
 
-    public Reservation(int id, Chambre chambre, String dateDebut, String dateFin, Client client2) {
-        this.id = id;
+    public Reservation(int  id, Chambre chambre, String dateDebut, String dateFin, Client client2) {
+    	this.id=id;
         this.chambre = chambre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.client = client2;
         this.etat = EtatReservation.EN_ATTENTE;
-
+        
     }
 
     /// Getters & Setters
@@ -94,5 +97,47 @@ public class Reservation {
         // Add validation logic here if needed
         reservations = newValue;
     }
+    
+
+    public static void acceptReservation(int selectedReservationId ,DefaultTableModel model) {
+		 
+	                if (selectedReservationId != -1) {
+	                    Reservation reservation = Reservation.reservations.get(selectedReservationId);
+	                    if (reservation != null) {
+	                    	if  (reservation.getChambre().getEtatChambre()==EtatChambres.RESERVEE) {
+	                    		
+	                    		 reservation.setEtat(EtatReservation.ANNULEE);
+	                    		
+	                    		//JOptionPane.showMessageDialog(table, e);
+	                    	}
+	                    	else {
+	                        reservation.setEtat(EtatReservation.CONFIRMEE); // Mettre à jour l'état de la réservation
+	                        
+	                        Chambre chambre = reservation.getChambre();
+	                        chambre.setEtatChambre(EtatChambres.RESERVEE);
+							 
+	                      
+	                    	}
+	                        
+	                    }
+	                }
+	          
+	 }
+    
+    
+    public static void declineReservation(int selectedReservationId ,DefaultTableModel model,JTable table) {
+
+   	            	 if (selectedReservationId != -1) {
+   	                     Reservation reservation = Reservation.reservations.get(selectedReservationId);
+   	                     if (reservation != null) {
+   	                         reservation.setEtat(EtatReservation.ANNULEE); // Mettre à jour l'état de la réservation
+   	                         
+   	                         Chambre chambre = reservation.getChambre();
+   	                         chambre.setEtatChambre(EtatChambres.LIBRE);
+   				                }
+   	                     }
+   	                 }
+
+    
 
 }

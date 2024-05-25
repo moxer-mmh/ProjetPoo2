@@ -2,13 +2,16 @@ package View;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import Controller.CtrlClient;
 import Model.Client;
 
 import javax.swing.JTextField;
@@ -20,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.Font;
 
 public class JClient extends JFrame {
 
@@ -61,78 +63,78 @@ public class JClient extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JLabel background = new JLabel();
-		background.setBounds(400, 0, 386, 563);
+		background.setBounds(341, -12, 445, 575);
 		contentPane.add(background);
-		background.setIcon(new ImageIcon(getClass().getResource("hotel1.png")));
-
-		JLabel textt = new JLabel("Entre votre nom et prenom");
-		textt.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textt.setForeground(Color.white);
-		textt.setBounds(80, 120, 360, 57);
-		background.add(textt);
-
+		background.setIcon(new ImageIcon(getClass().getResource("Hotel.jpg")));
+		
 		JLabel background2 = new JLabel();
 		background2.setBounds(0, 0, 401, 563);
 		background2.setOpaque(true);
 		background2.setBackground(Color.white);
 		contentPane.add(background2);
-
+		
 		JLabel logo = new JLabel();
 		logo.setIcon(new ImageIcon(getClass().getResource("logo.png")));
 		logo.setBounds(70, 136, 236, 256);
 		background2.add(logo);
+		
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(50, 200, 300, 148);
+		panel.setBounds(50, 200, 350, 148);
 		panel.setLayout(null);
-
+		background.add(panel);
+		
 		nomClient = new JTextField();
-		nomClient.setBackground(new Color(0, 21, 43));
+		nomClient.setCaretColor(Color.white);
 		nomClient.setForeground(Color.white);
-		nomClient.setBounds(129, 10, 161, 34);
+		nomClient.setBackground(new Color(0, 21, 43));
+		nomClient.setBounds(129, 10, 206, 34);
 		panel.add(nomClient);
 		nomClient.setColumns(10);
 
 		prenomClient = new JTextField();
-		prenomClient.setBackground(new Color(0, 21, 43));
+		prenomClient.setCaretColor(Color.white);
 		prenomClient.setForeground(Color.white);
-		prenomClient.setColumns(10);
-		prenomClient.setBounds(129, 54, 161, 34);
+		prenomClient.setBackground(new Color(0, 21, 43));
+		prenomClient.setBounds(129, 54, 206, 34);
 		panel.add(prenomClient);
 
-		JLabel lblNewLabel = new JLabel("Nom");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setForeground(Color.white);
-		lblNewLabel.setBounds(0, 13, 98, 27);
-		panel.add(lblNewLabel);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
+		JLabel lblNomLabel = new JLabel("Nom");
+		lblNomLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNomLabel.setForeground(new Color(0, 0, 64));
+		lblNomLabel.setBounds(0, 21, 98, 27);
+		panel.add(lblNomLabel);
+		lblNomLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		
 		JLabel lblPrenom = new JLabel("Prenom");
+		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblPrenom.setForeground(Color.white);
+		lblPrenom.setForeground(new Color(0, 0, 64));
 		lblPrenom.setBounds(0, 50, 98, 35);
 		panel.add(lblPrenom);
 		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
-
+		
+	
 		JButton btnNewButton = Design.createButton("Entrer", 120, 98, 80, 44);
+		panel.add(btnNewButton);
 		btnNewButton.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				addClient();
+				CtrlClient.actionAddClient(nomClient, prenomClient);
 				dispose();
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addClient();
+				CtrlClient.actionAddClient(nomClient, prenomClient);
 				dispose();
 			}
 		});
-
-		btnNewButton_1 = Design.createButton("Retour", 220, 98, 80, 44);
+	
+		JButton btnNewButton_1 = Design.createButton("Retour", 240, 98, 80, 44);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -142,9 +144,9 @@ public class JClient extends JFrame {
 
 			}
 		});
-
-		panel.add(btnNewButton);
 		panel.add(btnNewButton_1);
+		
+		
 
 		background.add(panel);
 	}

@@ -84,11 +84,13 @@ public class JChambre extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(33, 51, 261, 418);
 		contentPane.add(panel);
 		panel.setLayout(null);
+
 
 		JLabel lblNewLabel = new JLabel("NUM-CHAMBRE");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -113,29 +115,7 @@ public class JChambre extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnAddRoom = new JButton("AJOUTER");
-		btnAddRoom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table, this);
-			}
-		});
-
-		btnAddRoom.setBounds(21, 23, 108, 23);
-		panel_1.add(btnAddRoom);
-
-		JButton btnModifRoom = new JButton("MODIFIER");
-
-		CtrlChambre.actionModifyRoom(btnModifRoom, table, model, typeChambre, etatChambre);
-
-		btnModifRoom.setBounds(21, 56, 105, 23);
-		panel_1.add(btnModifRoom);
-
-		JButton btnSupprimer = new JButton("SUPPRIMER");
-
-		CtrlChambre.actionDeleteRoom(btnSupprimer, table, model);
-
-		btnSupprimer.setBounds(21, 90, 108, 23);
-		panel_1.add(btnSupprimer);
+		
 
 		typeChambre.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings({})
@@ -168,6 +148,32 @@ public class JChambre extends JFrame {
 		etatChambre.setBounds(10, 174, 192, 30);
 		panel.add(etatChambre);
 
+
+		JButton btnAddRoom = new JButton("AJOUTER");
+	
+
+		btnAddRoom.setBounds(21, 23, 108, 23);
+		panel_1.add(btnAddRoom);
+		 CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table);
+				
+		
+		JButton btnModifRoom = new JButton("MODIFIER");
+
+		CtrlChambre.actionModifyRoom(btnModifRoom, table, model, typeChambre, etatChambre);
+
+		btnModifRoom.setBounds(21, 56, 105, 23);
+		panel_1.add(btnModifRoom);
+
+		JButton btnSupprimer = new JButton("SUPPRIMER");
+
+		CtrlChambre.actionDeleteRoom(btnSupprimer, typeChambre, etatChambre, numChambre, table, model);
+		
+
+		btnSupprimer.setBounds(21, 90, 108, 23);
+		panel_1.add(btnSupprimer);
+		
+		
+		
 		JLabel lblNewLabel_1 = new JLabel("INFORMATION CHAMBRES");
 		lblNewLabel_1.setForeground(new Color(0, 64, 64));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -179,6 +185,8 @@ public class JChambre extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
+		
+		
 		CtrlChambre.actionSelectRoom(table, model, typeChambre, etatChambre, numChambre);
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

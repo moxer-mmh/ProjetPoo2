@@ -1,19 +1,18 @@
 package Model;
 
 public class Date {
-	private static final int Todayday = 23;
-	private static final int Todaymonth = 5;
-	private static final int Todayyear = 2024;
-
-	public static int getTodayday() {
+	
+	private static final String Todayday ="24";
+	private static final String Todaymonth ="05";
+	private static final String Todayyear="2024";
+	
+	public static String getTodayday() {
 		return Todayday;
 	}
-
-	public static int getTodaymonth() {
+	public static String getTodaymonth() {
 		return Todaymonth;
 	}
-
-	public static int getTodayyear() {
+	public static String getTodayyear() {
 		return Todayyear;
 	}
 

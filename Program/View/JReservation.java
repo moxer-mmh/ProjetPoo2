@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.CtrlReservation;
+import java.awt.Font;
 
 public class JReservation extends JFrame {
 
@@ -32,7 +33,7 @@ public class JReservation extends JFrame {
 
     public JReservation() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 905, 600);
+        setBounds(100, 100, 910, 600);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -56,23 +57,23 @@ public class JReservation extends JFrame {
         CtrlReservation.actionSelectReservation(model, table);
 
         JButton retour = new JButton("RETOUR");
+        retour.setBounds(670, 520, 100, 30);
+        contentPane.add(retour);
         CtrlReservation.actionRetour(retour, this);
 
-        int buttonWidth = 100;
-        int buttonHeight = 30;
-        retour.setBounds(670, 520, buttonWidth, buttonHeight);
-        contentPane.add(retour);
-
         JButton btnAcceptReserv = new JButton("ACCEPTER");
-        CtrlReservation.actionAcceptReserv(btnAcceptReserv, model, table);
+        btnAcceptReserv.setFont(new Font("Tahoma", Font.PLAIN, 11));
+      
+        CtrlReservation.actionAcceptReservation(btnAcceptReserv, model, table);
 
-        btnAcceptReserv.setBounds(780, 40, 89, 23);
+        btnAcceptReserv.setBounds(780, 40, 99, 23);
         contentPane.add(btnAcceptReserv);
 
         JButton btndeclineReserv = new JButton("DECLINER");
+        btndeclineReserv.setFont(new Font("Tahoma", Font.PLAIN, 11));
         CtrlReservation.actionDeclineReserv(btndeclineReserv, model, table);
 
-        btndeclineReserv.setBounds(780, 74, 89, 23);
+        btndeclineReserv.setBounds(780, 74, 99, 23);
         contentPane.add(btndeclineReserv);
     }
 }
