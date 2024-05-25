@@ -21,10 +21,12 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import Model.Date;
 import Model.EtatReservation;
+import Model.ModelTable;
 import Model.TypeChambre;
 
 import javax.swing.ListSelectionModel;
@@ -69,7 +71,7 @@ public class JResrvationClient extends JFrame {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public JResrvationClient(String nom, String prenom) {
 
-		model = new DefaultTableModel(
+		model = new ModelTable(
 				new Object[][] {},
 				new String[] { "ID", "Chambre", "Type", "Date Début", "Date Fin", "État" });
 		
@@ -82,6 +84,10 @@ public class JResrvationClient extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		this.setTitle("THE WHITE SWAN HOTEL");
+		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		setIconImage(icon.getImage());
 		
 		Color sideColor = new Color(44, 62, 80);
 
@@ -114,10 +120,11 @@ public class JResrvationClient extends JFrame {
 		pReservation.add(panel_1_1);
 
 		prenomC = new JTextField();
+		prenomC.setFont(new Font("Tahoma", Font.BOLD, 12));
 		prenomC.setEnabled(false);
 		prenomC.setText(prenom);
 		prenomC.setColumns(10);
-		prenomC.setBounds(10, 20, 230, 25);
+		prenomC.setBounds(10, 0, 230, 25);
 		panel_1_1.add(prenomC);
 
 		
@@ -150,10 +157,11 @@ public class JResrvationClient extends JFrame {
 		pReservation.add(panel_3);
 
 		nomC = new JTextField();
+		nomC.setFont(new Font("Tahoma", Font.BOLD, 12));
 		nomC.setEnabled(false);
 		nomC.setText(nom);
 		nomC.setColumns(10);
-		nomC.setBounds(10, 20, 230, 25);
+		nomC.setBounds(10, 0, 230, 25);
 		panel_3.add(nomC);
 
 		JComboBox<String> startdayComboBox = new JComboBox<String>();
@@ -260,12 +268,13 @@ public class JResrvationClient extends JFrame {
 		
 	
 
-		CtrlReservationClient.actionVisiblePanelReserv(btnReservation, pReservation, panel_1, pMesReserv, btnModif2, btnEnregistrer);
+		CtrlReservationClient.actionVisiblePanelReserv(btnReservation, pReservation, panel_1, pMesReserv
+				, btnModif2, btnEnregistrer,etatChambreC);
 		
 		
 		CtrlReservationClient.actionModifyResrvation(btnModifier, nom, prenom, model, tableMesReserv, selectedReservationEtat,
 				btnReservation, pReservation,panel_1, pMesReserv,startdayComboBox,startmonthComboBox,startyearComboBox,enddayComboBox,endmonthComboBox,endyearComboBox
-				,btnEnregistrer,btnModif2);
+				,btnEnregistrer,btnModif2,etatChambreC );
 
 		
 		CtrlReservationClient.actionModify2Resrvation(btnModif2, nom, prenom, model, tableMesReserv, selectedReservationEtat,
@@ -277,3 +286,4 @@ public class JResrvationClient extends JFrame {
 
 	}
 }
+

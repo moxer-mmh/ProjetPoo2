@@ -48,7 +48,11 @@ public class JMain extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-		// Couleur de fond
+        this.setTitle("THE WHITE SWAN HOTEL");
+        ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+        setIconImage(icon.getImage());
+        
+        // Couleur de fond
         Color backgroundColor = new Color(245, 245, 245);
         contentPane.setBackground(backgroundColor);
 

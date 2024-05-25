@@ -77,8 +77,7 @@ public class CtrlChambre {
 					selectedRow = table.getSelectedRow();
 					
 					Admin.modifyRoom(selectedRow, model, typeChambre, etatChambre);	
-					JOptionPane.showMessageDialog(null, "Modification effectuée avec succès", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-				}
+						}
 			});
 		}
 			

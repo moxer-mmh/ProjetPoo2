@@ -97,11 +97,16 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
 	        DefaultTableModel model, JTable tableResrvClient, EtatReservation selectedReservationEtat,
 	        JButton btnReservation, JPanel pReservation, JPanel panel_1,JPanel pMesReserv,
 	        JComboBox<String> startday,JComboBox<String> startmonth,JComboBox<String> startyear,JComboBox<String> endday,JComboBox<String> endmonth,JComboBox<String> endyear 
-	        ,JButton btnEnregistrer ,JButton btnModif2) {
+	        ,JButton btnEnregistrer ,JButton btnModif2,JComboBox<TypeChambre>  etatChambreC ) {
 
 		btnModifier.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	        	
+	        	tableResrvClient.setModel(model);
+	     	    int selectedRow = tableResrvClient.getSelectedRow();
+	        	
+	     	    if (selectedRow != -1) {
+	        	  	
 	        	
 	        	pReservation.setVisible(true);
 				Insets insets = pReservation.getInsets(); // Get insets for border padding
@@ -110,12 +115,10 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
 				pMesReserv.setVisible(false);
 				btnEnregistrer.setVisible(false);
 				btnModif2.setVisible(true);
+				etatChambreC.setVisible(false);
 				
 				
-				 tableResrvClient.setModel(model);
-		     	    int selectedRow = tableResrvClient.getSelectedRow();
-		        	if (selectedRow != -1) {
-		        	   selectedReservationId = (int) tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0);  
+				   selectedReservationId = (int) tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0);  
 		        	   Reservation reservation = Reservation.reservations.get(selectedReservationId);
 		        	 
 		        	   startday.setSelectedItem(reservation.getDateDebut().toString().substring(0, 2));
@@ -131,21 +134,9 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
 					   Client.modifReservation( nom, prenom,selectedReservationId,selectedRow);
 					//   model.removeRow(selectedRow);
 		        	   }
-	        	
-	        	
-				/*
-				 * selectedReservationId = (int)
-				 * tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0); String[]
-				 * Datedebut = tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(),
-				 * 3).toString().split("/");
-				 * 
-				 * 
-				 * 
-				 * 
-				 * Client.modifyReservation(nom, prenom, model,selectedReservationId,
-				 * Datedebut,selectedReservationEtat);
-				 */
-		        	}  
+	        	}
+			
+ 		         
 	        
 	    });
 	}
@@ -153,7 +144,7 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
  
 
 	public static void actionVisiblePanelReserv(JButton btnReservation, JPanel pReservation, JPanel panel_1,JPanel pMesReserv,
-			JButton btnModif2,JButton btnEnregistrer) {
+			JButton btnModif2,JButton btnEnregistrer,JComboBox<TypeChambre>  etatChambreC ) {
 
 		btnReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +155,7 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
 				pMesReserv.setVisible(false);
 				btnEnregistrer.setVisible(true);
 				btnModif2.setVisible(false);
+				etatChambreC.setVisible(true);
 			}
 		});
 
@@ -205,60 +197,34 @@ etatChambreC.getSelectedItem().toString(), nom,prenom);
 
 		btnModif2.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	
-	        	
+	      
 	        	pReservation.setVisible(true);
 				Insets insets = pReservation.getInsets(); // Get insets for border padding
 				pReservation.setBounds(300 + insets.left, 20 + insets.top, 800, 700); //
 				panel_1.setVisible(false);
 				pMesReserv.setVisible(false);
 				
+				String startDate = startday.getSelectedItem().toString()+ "/" + startmonth.getSelectedItem().toString() + "/" + startyear.getSelectedItem().toString(); 
+				String endDate =  endday.getSelectedItem().toString() + "/" + endmonth.getSelectedItem().toString()+ "/" +  endyear.getSelectedItem().toString();
+				  
+				
+				try { Client.validateDates(startDate, endDate); } catch (InvalidDateException e1) {
+					  JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur",
+					  JOptionPane.ERROR_MESSAGE); return;
+				} 
+				
 				 Reservation reservation = Reservation.reservations.get(selectedReservationId);
 				 
 				 reservation.setDateDebut(startday.getSelectedItem().toString()+"/"+startmonth.getSelectedItem().toString()+"/"+startyear.getSelectedItem().toString());
 				 reservation.setDateFin(endday.getSelectedItem().toString()+"/"+endmonth.getSelectedItem().toString()+"/"+endyear.getSelectedItem().toString());
-					
+	        		
 				
-				/*
-				 * tableResrvClient.setModel(model); int selectedRow =
-				 * tableResrvClient.getSelectedRow(); if (selectedRow != -1) {
-				 * selectedReservationId = (int)
-				 * tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0);
-				 * 
-				 * 
-				 * startday.setSelectedItem(reservation.getDateDebut().toString().substring(0,
-				 * 2));
-				 * startmonth.setSelectedItem(reservation.getDateDebut().toString().substring(3,
-				 * 5));
-				 * startyear.setSelectedItem(reservation.getDateDebut().toString().substring(6,
-				 * 10));
-				 * 
-				 * endday.setSelectedItem(reservation.getDateFin().toString().substring(0, 2));
-				 * endmonth.setSelectedItem(reservation.getDateFin().toString().substring(3,
-				 * 5)); endyear.setSelectedItem(reservation.getDateFin().toString().substring(6,
-				 * 10));
-				 * 
-				 * 
-				 */  
-					  // Client.modifReservation( nom, prenom,selectedReservationId,selectedRow);
-					//   model.removeRow(selectedRow);
-					   JOptionPane.showMessageDialog(null, "Réservation modifiée avec succès", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-		        	  // }
+			 	   JOptionPane.showMessageDialog(null, "Réservation modifiée avec succès", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		        	  
 	        	
 	        	
-				/*
-				 * selectedReservationId = (int)
-				 * tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(), 0); String[]
-				 * Datedebut = tableResrvClient.getValueAt(tableResrvClient.getSelectedRow(),
-				 * 3).toString().split("/");
-				 * 
-				 * 
-				 * 
-				 * 
-				 * Client.modifyReservation(nom, prenom, model,selectedReservationId,
-				 * Datedebut,selectedReservationEtat);
-				 */
 		        	}  
+	       
 	        
 	    });
 	}

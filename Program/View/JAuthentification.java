@@ -54,6 +54,11 @@ public class JAuthentification extends JFrame {
 		contentPane.setMinimumSize(new Dimension(35000, 35000));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		this.setTitle("THE WHITE SWAN HOTEL");
+		
+		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		setIconImage(icon.getImage());
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 

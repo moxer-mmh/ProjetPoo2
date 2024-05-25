@@ -50,7 +50,11 @@ public class JAdmin extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-
+        
+        this.setTitle("THE WHITE SWAN HOTEL");
+        ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+        setIconImage(icon.getImage());
+        
 		Color sideColor = new Color(44, 62, 80);
 
 		
@@ -83,7 +87,7 @@ public class JAdmin extends JFrame {
 		JPanel sidePanel = new JPanel();
 		contentPane.add(sidePanel);
 		sidePanel.setBackground(sideColor);
-		sidePanel.setBounds(-1, 11, 205, 580);
+		sidePanel.setBounds(0, 0, 205, 598);
 		sidePanel.setLayout(null);
 		sidePanel.add(clientButton);
 		sidePanel.add(reservationButton);

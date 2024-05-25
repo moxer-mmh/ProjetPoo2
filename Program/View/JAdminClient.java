@@ -3,12 +3,11 @@ package View;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
-
-	import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 	import javax.swing.JScrollPane;
 	import javax.swing.JTable;
 	import javax.swing.table.DefaultTableModel;
@@ -43,6 +42,15 @@ import javax.swing.ListSelectionModel;
 	        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	        setContentPane(contentPane);
 	        contentPane.setLayout(null);
+	        
+	        this.setTitle("THE WHITE SWAN HOTEL");
+	        ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+	        setIconImage(icon.getImage());
+	        
+	        JLabel background = new JLabel();
+			background.setIcon(new ImageIcon(getClass().getResource("welcome.jpg")));
+			background.setBounds(0, 0, 622, 458);
+			contentPane.add(background);
 
 	        DefaultTableModel model = new DefaultTableModel(
 	                new Object[][] {},
@@ -61,10 +69,9 @@ import javax.swing.ListSelectionModel;
 	        scrollPane.setBounds(10, 10, 545, 360); // Ajustez les dimensions et la position selon vos besoins
 
 	        // Ajouter le JScrollPane au JPanel principal
-	        contentPane.add(scrollPane);
-	        JButton retour = new JButton("RETOUR");
-	        retour.setBounds(455, 384, 100, 30);
-	        contentPane.add(retour);
+	        background.add(scrollPane);
+	        JButton retour = Design.createButton("RETOUR",455, 384, 100, 30);
+	        background.add(retour);
 	        CtrlClient.actionRetour(retour, this);
 	    }
 	}

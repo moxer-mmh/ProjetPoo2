@@ -60,7 +60,11 @@ public class JClient extends JFrame {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		
+		this.setTitle("THE WHITE SWAN HOTEL");
+		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		setIconImage(icon.getImage());
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -120,19 +124,9 @@ public class JClient extends JFrame {
 	
 		JButton btnNewButton = Design.createButton("Entrer", 120, 98, 80, 44);
 		panel.add(btnNewButton);
-		btnNewButton.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				CtrlClient.actionAddClient(nomClient, prenomClient);
-				dispose();
-			}
-		});
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CtrlClient.actionAddClient(nomClient, prenomClient);
-				dispose();
-			}
-		});
+		CtrlClient.actionAddClient(btnNewButton,this,nomClient, prenomClient);
+				
+		
 	
 		JButton btnNewButton_1 = Design.createButton("Retour", 240, 98, 80, 44);
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -151,38 +145,7 @@ public class JClient extends JFrame {
 		background.add(panel);
 	}
 
-	public static void addClient() {
-		String nom = nomClient.getText();
-		String prenom = prenomClient.getText();
+	
 
-		// Vérifier si le client existe déjà dans la map
-		for (Client c : clients.values()) {
-			if (c.getNom().equals(nom) && c.getPrenom().equals(prenom)) {
-				System.out.println("Le client existe déjà.");
-				JResrvationClient f = new JResrvationClient(nom, prenom);
-				f.setVisible(true);
-				return; // Sortir de la méthode après avoir ouvert la fenêtre JMenuClient
-			}
-		}
 
-		// Si le client n'existe pas, créer un nouveau client
-		Client client = new Client(nom, prenom, row);
-		clients.put(row, client);
-		System.out.println("Nouveau client créé avec l'ID : " + row);
-		++row;
-
-		JResrvationClient f = new JResrvationClient(nom, prenom);
-		f.setVisible(true);
-	}
-
-	public static void listeClient() {
-		for (Client rowList : clients.values()) {
-
-			System.out.println(rowList.getNom());
-		}
-
-		// Création d'un JTable
-		// table.setModel(modelT);
-
-	}
 }
