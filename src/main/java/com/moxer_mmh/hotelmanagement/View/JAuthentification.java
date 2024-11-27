@@ -1,4 +1,4 @@
-package View;
+package com.moxer_mmh.hotelmanagement.View;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import Controller.CtrlAuthentification;
+import com.moxer_mmh.hotelmanagement.Controller.*;
 
 public class JAuthentification extends JFrame {
 
@@ -55,10 +55,11 @@ public class JAuthentification extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		this.setTitle("THE WHITE SWAN HOTEL");
-		
-		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+
+		ImageIcon icon = new ImageIcon(
+				"C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
 		setIconImage(icon.getImage());
-		
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -66,7 +67,7 @@ public class JAuthentification extends JFrame {
 		background.setIcon(new ImageIcon(getClass().getResource("Hotel.jpg")));
 		background.setBounds(341, -12, 445, 575);
 		contentPane.add(background);
-		
+
 		JLabel background2 = new JLabel();
 		background2.setBounds(0, 0, 401, 563);
 		background2.setOpaque(true);
@@ -107,7 +108,6 @@ public class JAuthentification extends JFrame {
 		CtrlAuthentification.actionLogin(btnLogin, pwd, utilisateur, this);
 		panel_1.add(btnLogin);
 
-
 		JLabel lblNewLabel = new JLabel("Utilisateur");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setForeground(new Color(0, 0, 64));
@@ -122,8 +122,6 @@ public class JAuthentification extends JFrame {
 		lblMotPasse.setBounds(0, 50, 98, 35);
 		panel_1.add(lblMotPasse);
 		lblMotPasse.setHorizontalAlignment(SwingConstants.RIGHT);
-
-
 
 	}
 }

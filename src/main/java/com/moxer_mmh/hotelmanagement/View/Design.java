@@ -1,4 +1,4 @@
-package View;
+package com.moxer_mmh.hotelmanagement.View;
 
 import java.awt.Color;
 import java.awt.Font;

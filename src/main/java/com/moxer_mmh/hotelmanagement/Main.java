@@ -1,7 +1,9 @@
 package com.moxer_mmh.hotelmanagement;
 
+import com.moxer_mmh.hotelmanagement.View.JMain;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        JMain.main(args);
     }
 }

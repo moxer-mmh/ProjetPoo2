@@ -1,18 +1,14 @@
-package View;
+package com.moxer_mmh.hotelmanagement.View;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import Controller.CtrlClient;
-import Model.Client;
+import com.moxer_mmh.hotelmanagement.Controller.*;
 
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -21,8 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class JClient extends JFrame {
 
@@ -35,9 +29,7 @@ public class JClient extends JFrame {
 	 * Launch the application.
 	 */
 
-	private static Map<Integer, Client> clients = new TreeMap<>();
 	static int row = 1;
-	private JButton btnNewButton_1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -60,37 +52,37 @@ public class JClient extends JFrame {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		this.setTitle("THE WHITE SWAN HOTEL");
-		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		ImageIcon icon = new ImageIcon(
+				"C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
 		setIconImage(icon.getImage());
-		
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel background = new JLabel();
 		background.setBounds(341, -12, 445, 575);
 		contentPane.add(background);
 		background.setIcon(new ImageIcon(getClass().getResource("Hotel.jpg")));
-		
+
 		JLabel background2 = new JLabel();
 		background2.setBounds(0, 0, 401, 563);
 		background2.setOpaque(true);
 		background2.setBackground(Color.white);
 		contentPane.add(background2);
-		
+
 		JLabel logo = new JLabel();
 		logo.setIcon(new ImageIcon(getClass().getResource("logo.png")));
 		logo.setBounds(70, 136, 236, 256);
 		background2.add(logo);
-		
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(50, 200, 350, 148);
 		panel.setLayout(null);
 		background.add(panel);
-		
+
 		nomClient = new JTextField();
 		nomClient.setCaretColor(Color.white);
 		nomClient.setForeground(Color.white);
@@ -112,7 +104,7 @@ public class JClient extends JFrame {
 		lblNomLabel.setBounds(0, 21, 98, 27);
 		panel.add(lblNomLabel);
 		lblNomLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JLabel lblPrenom = new JLabel("Prenom");
 		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -120,14 +112,11 @@ public class JClient extends JFrame {
 		lblPrenom.setBounds(0, 50, 98, 35);
 		panel.add(lblPrenom);
 		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-	
+
 		JButton btnNewButton = Design.createButton("Entrer", 120, 98, 80, 44);
 		panel.add(btnNewButton);
-		CtrlClient.actionAddClient(btnNewButton,this,nomClient, prenomClient);
-				
-		
-	
+		CtrlClient.actionAddClient(btnNewButton, this, nomClient, prenomClient);
+
 		JButton btnNewButton_1 = Design.createButton("Retour", 240, 98, 80, 44);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,13 +128,8 @@ public class JClient extends JFrame {
 			}
 		});
 		panel.add(btnNewButton_1);
-		
-		
 
 		background.add(panel);
 	}
-
-	
-
 
 }

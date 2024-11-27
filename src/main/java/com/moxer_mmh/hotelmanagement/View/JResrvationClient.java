@@ -1,4 +1,4 @@
-package View;
+package com.moxer_mmh.hotelmanagement.View;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -6,28 +6,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import Controller.CtrlReservationClient;
+import com.moxer_mmh.hotelmanagement.Controller.*;
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-
-import Model.Date;
-import Model.EtatReservation;
-import Model.ModelTable;
-import Model.TypeChambre;
+import com.moxer_mmh.hotelmanagement.Model.*;
 
 import javax.swing.ListSelectionModel;
 
@@ -45,7 +35,6 @@ public class JResrvationClient extends JFrame {
 	static int selectedRow;
 
 	JPanel pReservation = new JPanel();
-	
 
 	JTable tableMesReserv;
 	static DefaultTableModel model;
@@ -74,8 +63,6 @@ public class JResrvationClient extends JFrame {
 		model = new ModelTable(
 				new Object[][] {},
 				new String[] { "ID", "Chambre", "Type", "Date Début", "Date Fin", "État" });
-		
-
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 901, 508);
@@ -84,21 +71,21 @@ public class JResrvationClient extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		this.setTitle("THE WHITE SWAN HOTEL");
-		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
-		setIconImage(icon.getImage());
-		
-		Color sideColor = new Color(44, 62, 80);
 
+		this.setTitle("THE WHITE SWAN HOTEL");
+		ImageIcon icon = new ImageIcon(
+				"C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		setIconImage(icon.getImage());
+
+		Color sideColor = new Color(44, 62, 80);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 11, 234, 447);
 		panel.setLayout(null);
-        panel.setBackground(sideColor);
+		panel.setBackground(sideColor);
 		contentPane.add(panel);
 
-		JButton btnRetour = Design.createButton("Retour",10, 266, 193, 42);
+		JButton btnRetour = Design.createButton("Retour", 10, 266, 193, 42);
 		CtrlReservationClient.actionRetour(btnRetour, this);
 
 		btnRetour.setFont(new Font("Arial", Font.BOLD, 14));
@@ -108,8 +95,8 @@ public class JResrvationClient extends JFrame {
 		contentPane.add(pReservation);
 
 		pReservation.setVisible(false);
-		JButton btnReservation = Design.createButton("+ RESERVATION",10, 32, 197, 42);
-	
+		JButton btnReservation = Design.createButton("+ RESERVATION", 10, 32, 197, 42);
+
 		btnReservation.setFont(new Font("Arial", Font.BOLD, 14));
 		panel.add(btnReservation);
 		pReservation.setLayout(null);
@@ -127,13 +114,11 @@ public class JResrvationClient extends JFrame {
 		prenomC.setBounds(10, 0, 230, 25);
 		panel_1_1.add(prenomC);
 
-		
-
 		JComboBox<String> enddayComboBox = new JComboBox<String>();
 		enddayComboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "01", "02", "03", "04", "05", "06",
 				"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 				"24", "25", "26", "27", "28", "29", "30", "31" }));
-		enddayComboBox.setSelectedItem(String.valueOf(Date.getTodayday())); 
+		enddayComboBox.setSelectedItem(String.valueOf(Date.getTodayday()));
 		enddayComboBox.setBounds(10, 49, 70, 25);
 		panel_1_1.add(enddayComboBox);
 
@@ -146,7 +131,8 @@ public class JResrvationClient extends JFrame {
 
 		JComboBox<String> endyearComboBox = new JComboBox<String>();
 		endyearComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034",
+						"2035", "2036", "2037", "2038", "2039", "2040" }));
 		endyearComboBox.setSelectedItem(String.valueOf(Date.getTodayyear()));
 		endyearComboBox.setBounds(170, 49, 70, 25);
 		panel_1_1.add(endyearComboBox);
@@ -168,8 +154,8 @@ public class JResrvationClient extends JFrame {
 		startdayComboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "01", "02", "03", "04", "05", "06",
 				"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 				"24", "25", "26", "27", "28", "29", "30", "31" }));
-		startdayComboBox.setSelectedItem(String.valueOf(Date.getTodayday())); 
-		startdayComboBox.setBounds(10, 51, 70, 25);		
+		startdayComboBox.setSelectedItem(String.valueOf(Date.getTodayday()));
+		startdayComboBox.setBounds(10, 51, 70, 25);
 		panel_3.add(startdayComboBox);
 
 		JComboBox<String> startmonthComboBox = new JComboBox<String>();
@@ -182,7 +168,8 @@ public class JResrvationClient extends JFrame {
 
 		JComboBox<String> startyearComboBox = new JComboBox<String>();
 		startyearComboBox.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030" , "2031" , "2032" , "2033" , "2034" , "2035" , "2036" , "2037" , "2038" , "2039" , "2040"}));
+				new String[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034",
+						"2035", "2036", "2037", "2038", "2039", "2040" }));
 		startyearComboBox.setSelectedItem(String.valueOf(Date.getTodayyear()));
 		startyearComboBox.setBounds(170, 51, 70, 25);
 		panel_3.add(startyearComboBox);
@@ -204,11 +191,12 @@ public class JResrvationClient extends JFrame {
 		panel_4.add(etatChambreC);
 
 		JButton btnEnregistrer = new JButton("Enregistrer");
-		
-		
+
 		btnEnregistrer.setBounds(234, 142, 101, 23);
 
-		CtrlReservationClient.actionMakeReservation(btnEnregistrer, startdayComboBox, startmonthComboBox, startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, etatChambreC, nomC.getText(), prenomC.getText());
+		CtrlReservationClient.actionMakeReservation(btnEnregistrer, startdayComboBox, startmonthComboBox,
+				startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, etatChambreC, nomC.getText(),
+				prenomC.getText());
 
 		pReservation.add(btnEnregistrer);
 
@@ -239,51 +227,47 @@ public class JResrvationClient extends JFrame {
 		panel_1.setLayout(null);
 		btnAnnuler = new JButton("Annuler");
 
-		CtrlReservationClient.actionAnnulResrvation(btnAnnuler, nom, prenom, model, tableMesReserv, selectedReservationEtat);
+		CtrlReservationClient.actionAnnulResrvation(btnAnnuler, nom, prenom, model, tableMesReserv,
+				selectedReservationEtat);
 
 		btnAnnuler.setBounds(6, 34, 83, 23);
 		panel_1.add(btnAnnuler);
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		btnModifier = new JButton("Modifier");
-		
-		
-		//CtrlReservationClient.actionModifyResrvation(btnModifier, nom, prenom, model, tableMesReserv, selectedReservationEtat);
-		
+
+		// CtrlReservationClient.actionModifyResrvation(btnModifier, nom, prenom, model,
+		// tableMesReserv, selectedReservationEtat);
+
 		btnModifier.setBounds(6, 4, 83, 23);
 		panel_1.add(btnModifier);
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
-		
-        
-		JButton reservClient = Design.createButton("Mes Reservations",10, 107, 197, 42);
+
+		JButton reservClient = Design.createButton("Mes Reservations", 10, 107, 197, 42);
 		CtrlReservationClient.actionMesReservations(reservClient, pMesReserv, pReservation, contentPane, panel_1, nom,
 				prenom, model, tableMesReserv, selectedReservationId, selectedReservationEtat);
 
 		JButton btnModif2 = new JButton("Modifier");
 		btnModif2.setBounds(234, 142, 101, 23);
-		
-		
+
 		pReservation.add(btnModif2);
-		
-	
 
-		CtrlReservationClient.actionVisiblePanelReserv(btnReservation, pReservation, panel_1, pMesReserv
-				, btnModif2, btnEnregistrer,etatChambreC);
-		
-		
-		CtrlReservationClient.actionModifyResrvation(btnModifier, nom, prenom, model, tableMesReserv, selectedReservationEtat,
-				btnReservation, pReservation,panel_1, pMesReserv,startdayComboBox,startmonthComboBox,startyearComboBox,enddayComboBox,endmonthComboBox,endyearComboBox
-				,btnEnregistrer,btnModif2,etatChambreC );
+		CtrlReservationClient.actionVisiblePanelReserv(btnReservation, pReservation, panel_1, pMesReserv, btnModif2,
+				btnEnregistrer, etatChambreC);
 
-		
-		CtrlReservationClient.actionModify2Resrvation(btnModif2, nom, prenom, model, tableMesReserv, selectedReservationEtat,
-				btnReservation, pReservation,panel_1, pMesReserv,startdayComboBox,startmonthComboBox,startyearComboBox,enddayComboBox,endmonthComboBox,endyearComboBox);
+		CtrlReservationClient.actionModifyResrvation(btnModifier, nom, prenom, model, tableMesReserv,
+				selectedReservationEtat,
+				btnReservation, pReservation, panel_1, pMesReserv, startdayComboBox, startmonthComboBox,
+				startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox, btnEnregistrer, btnModif2,
+				etatChambreC);
 
+		CtrlReservationClient.actionModify2Resrvation(btnModif2, nom, prenom, model, tableMesReserv,
+				selectedReservationEtat,
+				btnReservation, pReservation, panel_1, pMesReserv, startdayComboBox, startmonthComboBox,
+				startyearComboBox, enddayComboBox, endmonthComboBox, endyearComboBox);
 
 		reservClient.setFont(new Font("Arial", Font.BOLD, 14));
 		panel.add(reservClient);
 
 	}
 }
-

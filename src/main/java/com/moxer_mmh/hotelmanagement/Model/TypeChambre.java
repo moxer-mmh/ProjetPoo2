@@ -1,4 +1,4 @@
-package Model;
+package com.moxer_mmh.hotelmanagement.Model;
 
 public enum TypeChambre {
     SIMPLE, DOUBLE, SUITE;

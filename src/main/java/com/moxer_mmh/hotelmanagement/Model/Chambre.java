@@ -1,4 +1,4 @@
-package Model;
+package com.moxer_mmh.hotelmanagement.Model;
 
 import java.util.Map;
 import java.util.TreeMap;

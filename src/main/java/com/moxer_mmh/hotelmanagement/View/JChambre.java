@@ -1,4 +1,4 @@
-package View;
+package com.moxer_mmh.hotelmanagement.View;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -12,12 +12,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.util.EventObject;
-import java.awt.event.ActionEvent;
 
-import Model.EtatChambres;
-import Model.TypeChambre;
+import com.moxer_mmh.hotelmanagement.Model.*;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -26,7 +23,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
-import Controller.CtrlChambre;
+import com.moxer_mmh.hotelmanagement.Controller.*;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -83,17 +80,17 @@ public class JChambre extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		this.setTitle("THE WHITE SWAN HOTEL");
-		ImageIcon icon = new ImageIcon("C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
+		ImageIcon icon = new ImageIcon(
+				"C:\\Users\\TRETEC\\OneDrive\\Bureau\\ProjetPoo2-main (1)\\ProjetPoo2-main\\Program\\View\\logo.png");
 		setIconImage(icon.getImage());
-		
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel background = new JLabel();
 		background.setIcon(new ImageIcon(getClass().getResource("welcome.jpg")));
 		background.setBounds(0, 0, 786, 554);
 		contentPane.add(background);
-
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
@@ -101,7 +98,6 @@ public class JChambre extends JFrame {
 		panel.setBounds(33, 51, 261, 418);
 		background.add(panel);
 		panel.setLayout(null);
-
 
 		JLabel lblNewLabel = new JLabel("NUM-CHAMBRE");
 		lblNewLabel.setForeground(Color.WHITE);
@@ -130,8 +126,6 @@ public class JChambre extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		typeChambre.setForeground(Color.WHITE);
-
-		
 
 		typeChambre.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings({})
@@ -167,26 +161,22 @@ public class JChambre extends JFrame {
 		etatChambre.setBounds(10, 174, 192, 30);
 		panel.add(etatChambre);
 
+		JButton btnAddRoom = Design.createButton("AJOUTER", 21, 23, 108, 23);
 
-		JButton btnAddRoom = Design.createButton("AJOUTER",21, 23, 108, 23);
-	
 		panel_1.add(btnAddRoom);
-		 CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table);
-				
-		
-		JButton btnModifRoom = Design.createButton("MODIFIER",21, 56, 105, 23);
+		CtrlChambre.actionAddRoom(btnAddRoom, typeChambre, numChambre, model, table);
+
+		JButton btnModifRoom = Design.createButton("MODIFIER", 21, 56, 105, 23);
 
 		CtrlChambre.actionModifyRoom(btnModifRoom, table, model, typeChambre, etatChambre);
 		panel_1.add(btnModifRoom);
 
-		JButton btnSupprimer = Design.createButton("SUPPRIMER",21, 90, 108, 23);
+		JButton btnSupprimer = Design.createButton("SUPPRIMER", 21, 90, 108, 23);
 
 		CtrlChambre.actionDeleteRoom(btnSupprimer, typeChambre, etatChambre, numChambre, table, model);
-		
+
 		panel_1.add(btnSupprimer);
-		
-		
-		
+
 		JLabel lblNewLabel_1 = new JLabel("INFORMATION CHAMBRES");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -199,8 +189,6 @@ public class JChambre extends JFrame {
 		background.add(panel_2);
 		panel_2.setLayout(null);
 
-		
-		
 		CtrlChambre.actionSelectRoom(table, model, typeChambre, etatChambre, numChambre);
 		table.setForeground(Color.WHITE);
 		table.setBackground(new Color(0, 53, 113));
@@ -213,7 +201,7 @@ public class JChambre extends JFrame {
 		table.setBounds(10, 11, 438, 396);
 		panel_2.add(table);
 
-		JButton btnRetour = Design.createButton("RETOUR",638, 486, 108, 23);
+		JButton btnRetour = Design.createButton("RETOUR", 638, 486, 108, 23);
 		background.add(btnRetour);
 		CtrlChambre.actionRetour(btnRetour, this);
 

@@ -1,4 +1,4 @@
-package Model;
+package com.moxer_mmh.hotelmanagement.Model;
 import javax.swing.table.DefaultTableModel;
 
 public class ModelTable extends DefaultTableModel {
